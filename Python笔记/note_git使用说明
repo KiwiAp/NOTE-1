@@ -1,0 +1,228 @@
+git 
+
+C:\Users\Levi\AppData\Local\Programs\Python\Python36\
+
+资源来源：廖雪峰的官方网站
+
+问题：怎么在VScode中使用git的这些强大功能？
+
+git管理原理-管理修改：
+当先add进暂存区后,没有退出暂存区而再次修改后提交,用git status查会发现存在红字modified
+第一次修改 -> git add -> 第二次修改 -> git commit
+因为Git管理的是修改，当你用git add命令后，在工作区的第一次修改被放入暂存区，准备提交，
+但是，在工作区的第二次修改并没有放入暂存区，
+所以，git commit只负责把暂存区的修改提交了，也就是第一次的修改被提交了，第二次的修改不会被提交。
+
+遵循命令行命令
+四种状态:
+                         暂存区2 
+        版本库1 - 版本库1- 版本库1 →版本库2 
+        工作区1 → 工作区2- 工作区2         工作区2
+未跟踪 - 未修改1 - 已修改 - 已暂存 - 未修改2
+
+repository里只有一个工作区,但有N个版本库,记录不同时间轴上的的工作区快照
+
+修改→add→commit→reset --hard HEAD^时发生的过程是：
+1.修改后,工作区1变成工作区2,git发现版本库1与工作区2不同,报一个unstage
+2.add后,git把工作区2的改动存入并创建一个暂存区2
+3.commit后,git整合版本库1和暂存区2的改动信息生成版本库2
+4.reset后,把版本库1的信息覆盖工作区2,于是工作区2变成工作区1
+
+修改→checkout时发生的过程是：
+1.修改后,工作区1变成工作区2,git发现版本库1与工作区2不同,报一个unstage
+2.checkout后,git把版本库1的信息覆盖工作区2,使工作区2回滚到工作区1
+
+修改→add→修改→commit时发生的过程是(此处有疑问)：
+1.修改后,工作区1变成工作区2,git发现版本库1与工作区2不同,报一个unstage
+2.add后,git把工作区2的改动存入并创建一个暂存区2
+3.修改后,工作区2变成工作区2,git发现暂存区2与工作区3不同？,又报一个unstage
+4.commit后,git整合版本库1和暂存区2的改动信息生成版本库2,但此时git发现版本库2与工作区3还是不同,unstage保留
+
+我把1修改成2,再add后，把2又改回成1,这时依然报一个to be committed,一个not staged
+用diff查报一个-1 +2 用diff HEAD查报空
+那么判断not staged的标准就应该不是和当前版本库直接比对额
+有意思的是,我把not staged的add上去以后,git status报空,也就是说,两条diff进了暂存区以后对冲抵消了！
+或者是git一看没有unstaged然后工作区又和版本库一样于是就直接git status报空了
+所以还是并不清楚原理是什么,但肯定的是,git还有一个区来储存或者用暂存区与工作区对比的方式查出新的diff
+但有趣,git的算法比我想象得要聪明很多,明天去问问git的算法原理
+
+
+ctrl+c 打断
+
+gitk   -可视化历史记录
+
+
+(一)简单命令
+-1.cat <file>  :读出某文件的信息
+-0. rm -rf .git    :取消一个仓库
+
+0.git init - 将当前目录作为git仓库
+#该目录下会生成一个隐藏的.git目录，用ls -ah命令可以看见
+1.git add <file>  :未跟踪→未修改1,或,已修改→已暂存
+git add -A  提交所有变化
+git add -u  提交被修改(modified)和被删除(deleted)文件，不包括新文件(new)
+git add .  提交新文件(new)和被修改(modified)文件，不包括被删除(deleted)文件
+2.git commit -m 'name'  : 已暂存→未修改2。 
+#-m后面的参数是提交时的注释
+#commit是一个快照,可能同时有很多文件发生了改动,进入了同一个快照中
+3.git reset --hard HEAD^  :未修改1←未修改2
+git reset --hard commit_id  :未修改1→未修改2
+#commit_id是版本号前7位 ,可以通过git reflog查询
+#HEAD^  :上一个版本
+HEAD^^  :上上个版本
+HEAD~n   :上n个版本
+4.git checkout -- <file>  :未修改1←已修改
+一种是readme.txt自修改后还没有被放到暂存区，现在，撤销修改就回到和版本库一模一样的状态；
+一种是readme.txt已经添加到暂存区后，又作了修改，现在，撤销修改就回到添加到暂存区后的状态。
+git checkout -- . : 未修改1←已修改(所有文件)
+5.git reset HEAD <file>   :已修改←已暂存
+#git reset命令既可以回退版本，也可以把暂存区的修改回退到工作区。当我们用HEAD时，表示最新的版本。
+
+6.git status  :查看仓库中文件的状态
+7.git diff  : 查看已修改文件的改动
+#git diff HEAD -- <file>   :针对某已修改或已暂存文件查看改动
+#好像比对的对象也有所不同？diff是纯粹记录修改,diff HEAD是工作区与当前版本库比对
+8.git log   :查询历史版本记录
+#git log --pretty=oneline  简化查看
+#按q退出查看
+9.git reflog  :查询历史命令
+
+
+(二)远程库
+10.git push origin master   :把本地库的所有内容上传到远程库上
+git push -u origin master   :并顺便把本地库master分支和远程库master分支关联起来
+#https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/0013752340242354807e192f02a44359908df8a5643103a000
+分布式版本系统的最大好处之一是在本地工作完全不需要考虑远程库的存在，也就是有没有联网都可以正常工作，
+而SVN在没有联网的时候是拒绝干活的！当有网络的时候，再把本地提交推送一下就完成了同步，真是太方便了！
+11.0 git remote add origin git@github.com:Levi-Hope/learngit.git
+11.1 git clone git@github.com:Levi-Hope/learngit.git  :从远程库上克隆到本地库
+
+
+(三)分支
+3.1 git branch  :查看分支
+3.2 git branch <name>   :创建分支
+3.3 git checkout <name>  :切换分支
+3.4 git checkout -b <name>   :创建+切换分支
+3.5 git merge <name>    :合并某分支到当前分支
+#git merge --no-ff -m '……' <name>   :禁用fast forward模式合并分支,保留分支历史信息(推荐)
+3.6 git branch -d <name>    :删除分支
+git branch -D <name>   :未被合并的分支删除后将丢失修改,需要用-D模式强行删除
+3.7 git log --graph   :查看分支合并图
+#git log --graph --pretty=oneline --abbrev-commit   :精简分支合并图
+
+master分支是主分支，因此要时刻与远程同步；
+dev分支是开发分支，团队所有成员都需要在上面工作，所以也需要与远程同步；
+bug分支只用于在本地修复bug，就没必要推到远程了，除非老板要看看你每周到底修复了几个bug；
+feature分支是否推到远程，取决于你是否和你的小伙伴合作在上面开发。
+
+3.8 git stash   :临时储藏当前分支工作区
+3.9 git stash list   :查看储藏的工作区
+3.10 git stash apply   :恢复内容,stash不删除
+git stash apply stash@{n}   :恢复指定的stash的内容
+git stash drop    :删除stash
+3.11 git stash pop    :恢复内容,删除stash
+
+stash的作用:
+暂存区是公用的，如果不通过stash命令隐藏，会带到其它分支去
+没有被stash的改动，会显示在各个分支里。让你迷惑它到底该属于哪个分支。
+所以要先把当前分支上的修改stash后,再去操作别的分支
+官网：stash-也就是你修改过的被追踪的文件和暂存的变更——并将它保存到一个未完结变更的堆栈中，随时可以重新应用。
+
+
+(四)多人协作
+4.1 git remote   :查看远程库
+git remote -v   :详细查看远程库(显示抓取和推送的地址)
+4.2 git push origin <分支名>    :推送该分支到远程库 
+4.3 git checkout -b dev origin/dev    :分支开发,创建远程的origin的分支dev到本地
+4.4 git branch --set-upstream-to=dev origin/dev     :指定本地dev分支支与远程origin/dev分支的链接
+4.5 git pull    :把别人最新的提交给抓取下来
+
+详情请看！：
+https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/0013760174128707b935b0be6fc4fc6ace66c4f15618f8d000
+
+
+(五)标签
+5.1 git tag <name>   :给最新commit上标签
+git tag <name> commit_id    :给特定的commit上标签
+git tag -a <name> -m'……' commit_id     ：上标签的时候还带注释
+5.2 git tag    :查看所有标签
+#git log --pretty=oneline 时可以看到标签
+5.3 git show <name>   :查看特定标签
+5.4 git tag -d <name>   :删除标签
+5.5 git push origin <name>   :把标签推送到远程
+5.5 git push origin --tags   :把所有标签推送到远程
+5.6 git push origin :refs/tags/<name>    :从远程库删除标签
+
+
+一整套流程：
+git init
+到github上建一个同名仓库test
+git remote add origin git@github.com:Levi-Hope/test.git
+
+git checkout -b dev
+修改test.txt
+git add test.txt
+git commit -m 'v1.0'
+git checkout master
+git merge --no-ff -m 'v1.0merge' dev
+git tag v1.0
+git push
+git push origin --tags
+
+修改tag:
+git tag 1.0
+git push origin --tags
+发现tag写错了
+git tag -d 1.0
+git tag v1.0
+git push origin :refs/tags/1.0
+
+(六)如何参与开源项目
+https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/00137628548491051ccfaef0ccb470894c858999603fedf000
+
+(七)码云
+https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/00150154460073692d151e784de4d718c67ce836f72c7c4000
+
+(八)自定义
+配置别名!:https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/001375234012342f90be1fc4d81446c967bbdc19e7c03d3000
+已:
+$ git config --global alias.st status
+$ git config --global alias.co checkout
+$ git config --global alias.ci commit
+$ git config --global alias.br branch
+$ git config --global alias.unstage 'reset HEAD'
+$ git config --global alias.last 'log -1'
+$ git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+
+【.gitignore文件：
+https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/0013758404317281e54b6f5375640abbb11e67be4cd49e0000
+1.使用Windows的童鞋注意了，如果你在资源管理器里新建一个.gitignore文件，它会非常弱智地提示你必须输入文件名，
+但是在文本编辑器里“保存”或者“另存为”就可以把文件保存为.gitignore了。
+2.来看一下《Pro Git》里对.gitignore格式规范的解释：
+所有空行或者以注释符号 ＃ 开头的行都会被 Git 忽略。
+可以使用标准的 glob 模式匹配。
+匹配模式最后跟反斜杠（/）说明要忽略的是目录。
+要忽略指定模式以外的文件或目录，可以在模式前加上惊叹号（!）取反。
+
+所谓的 glob 模式是指 shell 所使用的简化了的正则表达式：
+星号（*）匹配零个或多个任意字符；
+[abc] 匹配任何一个列在方括号中的字符（这个例子要么匹配一个 a，要么匹配一个 b，要么匹配一个 c）；
+问号（?）只匹配一个任意字符；
+如果在方括号中使用短划线分隔两个字符，表示所有在这两个字符范围内的都可以匹配（比如 [0-9] 表示匹配所有 0 到 9 的数字）。
+
+再来看一个 .gitignore 文件的例子：
+
+# 此为注释 – 将被 Git 忽略
+# 忽略所有 .a 结尾的文件
+*.a
+# 但 lib.a 除外
+!lib.a
+# 仅仅忽略项目根目录下的 TODO 文件
+# 不包括 subdir/TODO
+/TODO
+# 忽略 build/ 目录下的所有文件
+build/
+# 忽略 doc 目录下的所有 .txt 文件
+# 会忽略 doc/notes.txt 
+# 但不包括 doc/server/arch.txt
+doc/*.txt】

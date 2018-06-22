@@ -1,0 +1,46 @@
+一、抬头
+	#include "stdafx.h"		//include相当于import
+	#include <iostream>
+	using namespace std;	//using namespace xxx相当于from xxx import *,用于省略某个库的前缀,如把std::cout简化成cout
+							//using std::cout 相当于from xxx import cout
+							//但不同的是,C++中的using namespace是针对函数作用域的,放进不同的作用域会对不同的作用域起效果
+
+	常用抬头
+	#include "stdafx.h"
+	#include <iostream>
+	#include <cmath>
+	#include <climits>
+	#include <cfloat>
+	#include <string>
+	#include <cstring>
+二、快捷键
+	tab 增加缩进
+	shift+tab 减少缩进
+	ctrl+k+f 格式化代码
+	ctrl+l 删除整行
+	f9 设置断点
+
+三、main
+	int main()
+	{
+		statements
+		return 0
+	}
+
+四、变量类型
+	4.1 数值类:
+	char short int long
+	flout double
+	4.2 字符类:
+	char wchar_t string(<string>)
+	4.3 逻辑类:
+	bool void
+	4.4 结构类:
+	array structure union
+	4.5 指针:
+	pointer
+
+	4.5变量修饰符:
+	signed unsigned
+	short long
+	const

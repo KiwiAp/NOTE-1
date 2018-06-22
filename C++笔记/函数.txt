@@ -1,0 +1,18 @@
+一、定义
+type func_name(arg_list);	- 申明
+
+type func_name(arg_list)		- 定义
+{
+	//statements
+}
+
+二、重载
+type func_name(arg_list_1)
+{
+	//statements
+}
+
+type func_name(arg_list_2)
+{
+	//statements
+}
