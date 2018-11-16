@@ -1,0 +1,101 @@
+how to learn a command:
+	1.man [command]
+	2.[command] --help
+	3.observe how others use it
+
+how to solve a problem:
+	1.don't think the easy thing easy, don't think the hard thing hard
+	2.no matter how hard it is, believe the official document
+
+Commen Error:
+	syntax error near unexpected token `('    ->    Paratheses are shell meta-characters with special meaning to the shell, you have to tell the shell to ignore them when evaluating your command by escaping or quoting them
+
+Question:how to disnable Nvidia GPU in linux
+	possible solution 1 : nvidia-smi    https://www.microway.com/hpc-tech-tips/nvidia-smi_control-your-gpus/
+	possible solution 2 : disable from pci(lspci+/sys/bus/pci/devices/0000:01:00.0$ cat enable)    https://devtalk.nvidia.com/default/topic/821167/how-to-disable-one-of-the-gpus/
+	current solution 3 : prime-select    https://askubuntu.com/questions/551424/how-to-turn-off-nvidia-hybrid-graphics
+Question:Error massage on dmesg
+
+
+WIFI
+	ifconfig - config a network interface
+	iw - show / manipulate wireless devices and their configuration
+	iwlist - Get more detailed wireless information from a wireless interface
+	nmcli - command-line tool for controlling NetworkManager
+	arp - manipulate the system ARP cache
+		
+		ip address : (ifconfig)/(nmcli dev show)
+		change ip : ifconfig wlp2s0 10.30.1.94 netmask 255.255.252.0
+		scan wifi : nmcli -p dev wifi
+		show connection : nmcli -p con show --active
+		connect wifi : nmcli con up [id|uuid]
+		disconnect wifi : nmcli con down [id|uuid]
+		
+		create hotspot : nmcli -p dev wifi hotspot ifname wlp2s0 ssid test password "12345678"
+		close hotspot : nmcli -p con down Hotspot
+		list hotspot connecter : iw dev wlp2s0 station dump
+		monitor hotspot event : iw event
+		list arp : arp
+		
+		DNS : nmcli dev show | grep DNS
+		change DNS : 
+			sometime_work_solution : sudo nano /etc/resolv.conf    <-    add "nameserver 8.8.8.8" in front of the previous one
+			sometime_work_solution : sudo nano /etc/NetworkManager/system-connections/'CUHK(SZ)'    <-    add "dns=8.8.8.8    +     sudo service network-manager restart
+			current_solution : set Static IP address(sudo nano /etc/netplan/99_config.yaml) + sudo netplan apply    
+				https://help.ubuntu.com/lts/serverguide/network-configuration.html.en
+
+	wpa_cli - WPA command line client
+	wpa_supplicant - Wi-Fi Protected Access client and IEEE 802.1X supplicant
+	
+
+Process & service
+	htop - interactive process viewer
+	ps - report a snapshot of the current processes
+	/etc/init.d - check all the service
+	service - run a System V init script
+	systemctl - Control the systemd system and service manager
+
+Hardware
+	lshw - list hardware
+	lspci - list all PCI devices
+	tlp - apply laptop power saving settings
+	lsblk - list block devices
+	fdisk - manipulate disk partition table
+
+Text Dealer
+	grep- print lines matching a pattern
+	cut - remove sections from each line of files
+
+Command
+	xargs - build and execute command lines from standard input
+	
+Variable
+	env - show all environment variable
+	set - show all shell variable
+	echo $[variable] - show variable
+	
+	[variable]=xxx - creat/modify shell variable
+	export [variable]=xxx - creat/modify environment variable		#for permenantly setting, nano ~/.bashrc
+	
+	unset [variable] - clear variable
+	exec bash - clear all shell variable
+
+		https://www.digitalocean.com/community/tutorials/how-to-read-and-set-environmental-and-shell-variables-on-a-linux-vps
+
+log
+	sudo cat /var/log/syslog
+	sudo cat /var/log/apt/history.log
+	dmesg - print or control the kernel ring buffer
+
+	zcat, zless, zmore, zgrep, zdiff - similar command apply for .gzip file
+
+FIle system 
+	tree - list contents of directories in a tree-like format
+	tail - output the last part of files
+
+system
+	uname - print system information	
+
+
+
+

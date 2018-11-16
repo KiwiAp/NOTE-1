@@ -1,0 +1,1122 @@
+<<<<<<<<<<PART ZERO C++介绍>>>>>>>>>>
+一、编程思想:
+    1) 过程性 << CMP,JMP(goto),CALL << 汇编语言
+    2) 结构化 << for,if else,struct << C
+    3) 面向对象 << 成员私有化,类的继承 << C++
+
+    1> top-down << 用函数分解任务
+    2> bottom-up << 用OOP构建工具
+
+二、C++特性:
+    1）C - 过程性/结构化
+    2) OOP - 面向对象
+    3) 模板 - 泛型编程(generic programming)
+
+三、C++历史:
+    ANSI + ISO -> ISO/IEC 14992:1998 = C++98
+            -> ISO/IEC 14992:2003 = C++03
+            -> ISO/IEC 14992:2011 = C++11
+
+四、其它:
+    标准模板库:Standar Template Library, STL
+
+
+
+<<<<<<<<<<PART ONE 初识C++>>>>>>>>>>
+一、抬头:
+    #include <iostream> <- 头文件(变量申明和函数原型) << 预处理器会将头文件复制粘贴过来
+    #define INT-MAX = 32767 <- 定义别名 << 预处理会查找全文来替换独立的别名
+    using namespace std;
+
+二、编译器:
+    1) 预处理器
+    2) 主编译程序
+
+三、头文件和using语句:
+    #include <...> <- 新式风格，使用namespace std
+    #include " .h" <- 旧式风格
+    *如果文件名包含在<>内，编译器将在储存标准头文件的文件系统中查找
+    *如果文件名包含在""内，编译器将首先查找当前的工作目录，然后再去标准位置查找
+    using namespace std;
+    using std::cout;
+
+四、主体:
+    int main()
+    {
+        statements
+        return 0;
+    }
+
+五、变量和函数
+    变量申明:   *auto
+        int var; || typeName varName;
+    变量初始化:
+        int var = 5; || typeName varName = value;
+    变量赋值:
+        var = 5; || varName = value;
+    函数申明:   *void
+        int func(int x); || type funcName(argumentlist); <- 函数原型
+    函数定义:
+        int func(int x)     || type funcName(argumentlist)
+        {                   || {
+            statements      ||    statements
+            return x;       ||    return value;
+        }                   || }
+
+六、输入输出:
+    std::cout <<
+    std::cin >>
+    std::endl
+
+七、注释:
+    // or /* */
+
+八、数据类型:
+    1) 整型:    *<climits>可查上下限
+        short,int,long,long long
+    2) char类型: char
+    3) bool类型: bool
+    4) 浮点型:    *<cfloat>可查上下限    
+        float,double,long double
+
+九、const语句:
+    1) 初始化变量
+        const int var = 5;    ||    const type varName = value;
+
+十、类型转换:
+    1) 赋值    ->    窄⇄宽(->无损,<-截取)
+    2) 表达式    ->    窄->宽  >>  bool,char,short -> int(整型提升) -> float -> double -> long double
+    3) 传参    ->    窄->宽(由函数原型控制)
+
+十一、强制转换:
+    int x = int(5.6);    ||    typeName(value);
+
+
+
+<<<<<<<<<<PART TWO 深入数据类型>>>>>>>>>>
+一、数组array:
+    数组申明:
+        int arr[3];    ||    typeName arrName[arrSize]
+    数组初始化:
+        int arr[3] = {1,2,3};
+    数组赋值:
+        arr[1] = 2;
+
+二、字符串string:
+    1) char str[strSize];    <- C-style string
+        *'\0'为终止字符    *strlen()测字符串长度(不含'\0'),sizeof()测数组长度
+        *strcpy(str1,str2)深复制,strcat(str1,str2)组合字符串,strcmp(str1,str2)比较字符串*相当于str1-str2
+    2) string str;    <- <string>
+        *自动处理长度    *str.size()测字符串长度
+
+三、结构struct:
+    结构定义:
+        struct structName
+        {
+            typeName varName;
+            typeName arrName[arrSize];
+        };
+    结构申明:
+        structName varName;
+    结构初始化:
+        structName varName = 
+        {
+            value,
+            {value,value},
+        }
+    访问成员:
+        varName.memName
+    成员赋值:
+        varName1 = varName2;  //both are struct    *允许,深复制
+    结构数组:
+        structName var[arrSize];
+
+四、共用体union:
+    共用体定义:
+        union structName
+        {
+            typeName varName;
+            typeName arrName[arrSize];
+        };    
+    *共用体只能同时储存一种数据类型
+
+五、枚举enum:
+    枚举定义:
+        enum spectrum {red,orange,yellow,green,blue,violet,indigo,ultraviolet};
+    枚举申明:
+        spectrum band;
+    *枚举常用于定义符号常量
+
+六、程序过程:
+    1) 编译阶段
+    2) 运行阶段
+
+七、指针*:
+    原理:
+        1) var -> value, &var -> address
+        2) ptr -> address, *ptr -> value
+    指针申明:
+        int * ptr;    ||    type* ptr;
+    指针初始化:
+        int * ptr = &var;    ||    type* ptr = &var;
+    指针赋值:
+        ptr = &var;
+        ptr = (int *)(0xB8000000);
+        * ptr = var;
+    new分配内存:
+        int * ptr = new int;    ||    type * ptr = new type;
+        int * ptr = new int [size];    ||    type * ptr = new type [size];    -数组的指针
+    delete释放内存:
+        delete ptr;
+        delete [] ptr;    -数组的指针
+
+    关于数组的指针,指向数组的指针,由指针构成的数组:
+        1) 数组的指针: int * ptr;    
+            *若int arr[size]创建，数组的指针名等于数组名,数组的指针(arr)的值等于数组第一个元素的地址，数组的指针的地址等于数组的地址
+            *若int * ptr创建,则数组的指针(ptr)的值等于数组第一个元素的地址,数组的地址的地址有另外的地址
+        2) 指向数组的指针: int (* ptr) [10];
+        3) 由指针构成的数组 : int * (ptr [10]); or int * ptr [10]
+        *先与谁结合,决定ptr是什么。与*先结合则ptr是指针,与[]先结合则ptr是数组
+
+    关于数组的指针:
+        1) 数组的指针的值 = 数组第一个元素的地址
+            arrPtr = &arrPtr[0]
+        2) 数组的指针的下标 = 指针偏移(下标×元素size) = 数组的下标
+            arrPtr[1] = *(arrPtr + 1) = arr[1]
+            *数组的指针和数组的一个区别是:sizeof(arrPtr)=指针长度,sizeof(arr)=数组长度
+        3) 数组的指针的值是数组第一个元素的地址,数组的地址是整个数组的地址
+            arrPtr = &arrPtr[0](int *),&arr = ???(int (*) [size])
+        4) 数组的指针的值(int *)和数组的地址(int (*)[size])数值上相同，但类型上不同
+            int arr[3] = {1,2,3};
+            cout << (int *)arr << &arr << endl;    <-    相同
+            cout << (int *)arr + 1 << &arr + 1 << endl;    <-    不同
+            *前者是下一个元素的地址，后者是数组后下一个12字节内存块的地址
+
+    关于字符串的指针:
+        1) 字符串的数组名是第一个元素的地址
+        2) cout << 接收字符串第一个元素的地址然后不停打印直到遇到'/0'
+        3) 字符串常量(const char *)"Hello World"也是一个地址
+        4) 输出字符串的地址 ： cout << (int *)"Hello World";
+
+    关于结构的指针:
+        访问成员: 
+            structPtr->memName
+            (*structPtr).memName
+
+八、储存类型:
+    1) 自动储存
+        自动变量是局部变量，作用域为包含它的代码块
+        自动变量仅在程序执行该代码块时存在,程序离开代码块时自动变量被析构
+        自动变量在栈中储存
+    2) 静态储存
+        静态变量在整个程序执行期间都存在
+        成为静态变量:
+            1>在函数外定义
+            2>申明变量时使用关键字static
+                static int sVar = 5;
+    3) 动态储存
+        动态变量的构造和析构由new和delete决定
+        动态变量在堆中储存
+
+九、数组的替代品:
+    模板类vector : <vector>
+    模板类array : <array>
+
+
+
+<<<<<<<<<<PART THREE 结构化编程>>>>>>>>>>
+一、for循环:
+    for (initialization;test-expression;update-expression)
+    {
+        body
+    }
+二、表达式expression:
+    1) 表达式是值或值与运算符的结合
+    2) 表达式自身有值
+    3) 赋值表达式的值定义为左侧成员的值，赋值的过程可认为是赋值表达式的副作用(同理++)
+        var = 5;    <-    表达式语句
+        int var = 5;    <-    申明语句表达式
+    4) 递增运算符
+        a++ = 使用a当前的值计算表达式,然后将a的值+1
+        ++a = 先将a的值加1,然后使用新的值来计算表达式
+    5) 副作用和顺序点
+        副作用  <-  在计算表达式时对某些东西(储存在变量中的值)进行了修改
+        顺序点  <-  程序执行过程中的一个点，在这里，进入下一步之前将确保对所有的副作用都进行了评估
+            顺序点 : 分号,完整表达式(不是子表达式)的末位
+    6) 关系表达式
+        结果为true或者false，可被强制转换成1或者0
+三、代码块:
+    {
+        statement;
+        statement;
+    }
+    1) 代码块被视为一种复合语句    *逗号分隔符同理被视为复合表达式:expression,expression
+    2) 在代码块中定义的新变量，仅在程序执行该代码块时存在。执行完代码块以后，变量将会被析构
+四、while循环:
+    while (test-condition)
+    {
+        body
+    }
+五、类型别名:
+    1) 使用预处理器
+        #define BYTE char
+    2) 使用关键字typedef
+        typedef char BYTE;    ||    typedef typeName aliasName;
+六、do while循环:
+    do
+    {
+        body
+    } while ();
+七、基于范围的for循环:
+    for (int x : {1,2,3,4,5})  -  读
+    for (int x : int_arr)  -  读
+    for (int &x : int_arr)  -  读写(引用)
+八、二维数组:
+    二维数组申明:
+        int arr_d2 [4][5];    <-    arr_d2是一个由4组(5个整数组成的数组)组成的数组
+    二维数组初始化:
+        int arr_d2 [2][3] = 
+        {
+            {1,2,3},
+            {4,5,6},
+            {7,8,9}
+        }
+九、if语句:
+    if (test-condition)
+        statement
+    else if (test-condition)
+        statement
+    else
+        statement
+十、逻辑运算符:
+    1) OR : ||  <->  or
+    2) AND : &&  <->  and
+    3) NOT : !  <->  not
+十一、字符函数库: <cctype>
+十二、?:运算符:
+    expression1 ? expression2 : expression3
+    ||
+    if (expression1)
+        expression2;
+    else
+        expression3;
+十三、switch语句:
+    switch (integer-expression)
+    {
+        case label1 : statement(s)
+        case label2 : statement(s)
+        ...
+        default : statement(s)
+    }
+    *用break来终止代码块继续执行到下一个case
+十四、break和continue语句:
+    continue - 跳过循环体剩余部分，开始新一轮循环
+    break - 跳过循环的剩余部分，到达下一条语句
+十五、文件输入/输出
+    1) 写入:
+        #include <iostream>
+        ofstream fout;
+        fout.open("fish.txt");
+        fout << "Hello Wrold";
+        fout.close();
+    2) 读取:
+        #include <iostream>
+        ifstream fin;
+        fin.open("fish.txt");
+        fin >> str;
+        fin.close();        
+
+<<<<<<<<<<PART FOUR 函数探幽>>>>>>>>>>
+一、函数申明与定义
+    函数申明:    *void
+        type funcName(argumentlist);  <-  函数原型
+    函数定义:    *void
+        type funcName(argumentlist)
+        {
+            statements
+            return value;
+        }
+        *return的value如果类型不匹配，会被强制转换
+        *原型的出现是为了提高编译器检索参数和返回值类型的效率，加快编译速度
+二、函数参数:
+    1) 实参 << 传递给函数的值 << parameter
+    2) 形参 << 接收传递值的变量 << argument
+        形参是函数私有的，在函数调用时被构造，在函数结束时被析构
+三、函数和数组:
+    int func(int * arr);  ||  int func(int arr[]);    -    一维数组
+    int func(int (* arr)[size]);  ||  int func(int arr[][size]);    -    二维数组
+四、参数传递方式:
+    1) 按值传递
+        整型、bool型、浮点型  ->  int func(int var);
+    2) 按指针传递
+        数组  ->  int func(int * ptr);
+    3) 按引用传递
+        任何  ->  int func(int & var);
+五、指针和const:
+    1) 防止修改指针指向的地址的值
+        int var = 5;
+        const int * ptr = &var;
+        *合法的指向关系 : 常规指针 -> 常规变量 ; const指针 -> 常规变量 ; const指针 -> const变量
+                        常规指针 -> 常规指针 ; const指针 -> const指针
+        *合法的赋值关系 : 常规指针 -> 常规指针 ; 常规指针 -> const指针
+            *所以函数传参时，不可以把const指针传给常规指针
+    2) 防止修改指针指向的地址
+        int var = 5;
+        int * const ptr = &var;
+    3) 防止修改指针指向的地址和指向的地址的值
+        int var = 5;
+        const int * const ptr = &var;
+六、指针和字符串:
+    1) 函数无法直接返回字符串(char [size]),因为返回的是字符串变量的地址，而字符串变量作为自动变量会在函数结束后析构
+    2) 函数可以用new创建动态变量的字符串指针，通过返回字符串的指针(char *)来返回字符串
+        char * ptr = new char[strlen(str)+1]
+        strcpy(ptr,str);
+        return ptr;
+    3) 记住在调用函数获得返回的字符串动态指针之后要delete
+        delete [] ptr_str;
+七、函数指针:
+    *函数名就是函数地址
+    函数指针申明:
+        int func(double);  <-  原型
+        int (* ptr)(double);  <-  指针
+    函数指针赋值:
+        ptr = func;
+    函数指针调用函数:
+        int x = ptr(5.0);  ||  int x = (*ptr)(5.0);
+    *复杂的函数指针申明可用auto
+        const int * func(const double [],long);  <-  原型
+        const int * (* ptr)(const double [],long) = func;  ||  auto ptr = func  <-  指针
+    *复杂的函数指针申明也可用typedef简化
+        typedef const int * (* func_ptr)(const double [],long);
+        func_ptr ptr = func;
+    *申明由函数构成的数组
+        const double * (* arr [size])(const double [],long) = {func1,func2,func3};
+八、内联函数:
+    编译器在编译时使用函数代码来代替函数调用，以节省函数调用时记录前后文所花费的时间
+    一般在函数代码较短，函数执行时间较短的时候使用会比较高效
+    使用方法:
+        在函数声明或函数定义前加inline
+        inline int func(int x);
+        ||
+        inline int func(int x){return x*x;}
+九、引用变量:
+    引用是已定义变量的别名
+    使用引用的原因:
+        能在函数中修改实参
+        避免传参过程中变量的反复复制(进出各一次)，提高程序运行速度
+    创建引用变量:
+        int var1;
+        int & var2 = var1;    ||    type & varName1 = varName2;
+        *var2的类型 : (int &)
+        *引用变量类似于后const指针 : int * const ptr = &var1;  var2 <-> *ptr
+    按引用传递参数:
+        int func(int & var);    <-    实参必须为左值
+        int func(const int & var);    <-    实参可以为左值和非左值，传入非左值时会生成临时变量
+        *左值 <- 可被引用的数据对象，如变量、数组元素、结构成员、指针
+        *非左值 <- 不可被引用的数据对象，如常量和包含多项的表达式
+    函数返回引用:
+        int & func(int & var){return var;}    <-    返回引用,即返回的是var源变量，而不是var的拷贝
+            *应避免返回函数内创建的自动变量
+            *返回引用的函数实际上是被引用的变量的别名,允许有func(var) = 5;的这种操作
+            可用const int & func(int & var);避免对函数返回值赋值
+十、默认函数:
+    int func(int var = 1);
+    *将值赋给函数原型中的变量
+十一、函数重载:
+    1) 函数的参数列表 <-> 函数特征标(functon signature)
+    2) C++允许定义名称相同，特征标不同的函数，并根据传入参数的匹配程度决定使用哪个函数
+        *如果匹配程度相同，则生成编译错误
+    3) C++编译器通过对函数的名称修饰||名称矫正来对每个函数名进行加密和区分
+十二、函数模板:
+    1) 函数模板是通用的函数描述，它们使用泛型来定义函数，其中泛型可以具体的类型(int,double等)来替换
+        函数模板自动完成重载函数的过程
+    template <typename AnyType>
+    void Swap(AnyType & a, AnyType & b);
+
+    template <typename AnyType>
+    void Swap(AnyType & a, AnyType & b)
+    {
+        AnyType temp;
+        temp = a;
+        a = b;
+        b = temp;
+    }
+    ||
+    template <typename T>
+    void func(T var1;T var2);
+
+    template <typename T>
+    void func(T var1;T var2)
+    {
+        body
+    }
+    *可以在调用时写成Swap<double>(x,y)来强制指明T的类型,或者直接写成Swap(x,y)让编译器决定T的类型
+
+    2) 显式具体化
+        *对于给定的函数名，可以有非模板函数,显式具体化模板函数,模板函数,三者的优先级从大到小
+        显式具体化的原型和定义:
+            template <> void Swap<int>(int &, int&);    ->    '<int>'是可选参数，表明这是int的显式具体化
+            template <> void Swap<int>(int &, int&)
+            {
+                body
+            }
+        ?那为什么不用非模板函数？
+
+    3) 显式实例化
+        显式实例化的原型和定义:
+            template void Swap<int>(int &,int &);
+            template void Swap<int>(int &, int&)
+            {
+                body
+            }
+        ?好像是为了在编译阶段就生成函数实例？加快运行速度？
+
+    4) 模板特殊关键字decltype
+        decltype用于申明未知的变量类型
+        template<typename T1,typenameT2>
+        void sum(T1 x,T2 y)
+        {
+            ?type? var = x + y;    <-    ?type?应写成decltype(x+y)
+            ...
+        }
+        *decltype会通过查询核对表来决定var最后的类型
+    
+    5) 模板特殊声明语法
+        template<typename T1,typename T2>
+        ?type? sum(T1 x,T2 y)    <-    ?type?无法写成decltype(x+y)，因为x和y还不在函数作用域里
+        {
+            ...
+            return x+y;
+        }
+        可改成后置返回类型:
+        auto sum(T1 x,T2 y) -> decltype(x+y)    <-    现在使用decltype(x+y)时，x和y就已经在函数作用域里了
+
+<<<<<<<<<<PART FIVE 内存模型和名称空间>>>>>>>>>>
+一、单独编译:
+    C++鼓励程序员将组件函数放在独立的文件，编译器可以单独编译这些文件，然后把它们链接成可执行的文件
+    *用#include ".h"来在源文件里导入头文件,在同一个(VS)项目里的源文件会被编译器自动链接
+    通常的结构:
+        1) 头文件  <-  #define/const符号常量,结构声明,类声明,函数原型,内联函数
+        2) 源代码文件[1]  <-  函数定义
+        3) 源代码文件[2]  <-  主程序main
+二、头文件管理:
+    1) 在同一个文件中只能将同一个头文件包含一次
+    2) 使用预处理器编译指令#ifndef可以解决头文件间接重复问题
+        (头文件开头)
+        #ifndef HEAD_A
+        #define HEAD_A
+
+        (头文件结尾)
+        #endif
+    3) 原理:
+        编译器首次遇到ifndef时，HEAD_A没有定义，所以会执行ifndef到endif之间的内容
+        而编译器在同一文件中再次遇到ifndef时，HEAD_A已经定义，所以会忽略下面的内容
+        这种方法并不能防止编译器将头文件包含两次，但是会让它忽略除第一次包含以外的内容
+三、储存持续性:
+    1) 自动储存  <<  定义->代码块结束
+    2) 静态储存  <<  定义->程序结束
+    3) 动态储存  <<  new->delete
+
+四、作用域和链接性:
+    1) 作用域  <-  文件内作用范围
+        1> 局部(被定义的代码块内)
+        2> 文件(被定义的文件内)
+        3> 全局(项目的所有文件内)
+        4> 类/名称空间
+    2) 链接性  <-  文件外作用范围
+        1> 无 (只能在当前代码块中访问) - 局部作用域
+        2> 内部 (只能在当前文件中访问) - 文件作用域
+        3> 外部 (可以在其它文件中访问) - 全局作用域
+
+五、自动变量与静态变量:
+    1) 自动变量
+        0> 格式 : int var = 5;
+        1> 定义位置 : 代码块中
+        2> 储存持续性 : 自动储存
+        3> 作用域和链接性 : 局部作用域,无链接性
+    *编译器使用栈(LIFO)来储存自动变量
+
+    2) 静态变量I
+        0> 格式 : static int var = 5;
+        1> 定义位置 : 代码块中
+        2> 储存持续性 : 静态储存
+        3> 作用域和链接性 : 局部作用域,无链接性
+        *静态变量I只会被初始化一次
+    3) 静态变量II(内部变量)
+        0> 格式 : static int var = 5;
+        1> 定义位置 : 代码块外
+        2> 储存持续性 : 静态储存
+        3> 作用域和链接性 : 文件作用域,内部链接性
+    4) 静态变量III(全局变量,外部变量)
+        0> 格式 : int var = 5;
+        1> 定义位置 : 代码块外
+        2> 储存持续性 : 静态储存
+        3> 作用域和链接性 : 全局作用域,外部链接性
+    *编译器分配固定的内存块来储存所有的静态变量
+    *静态变量初始化方式:零初始化,常量表达式初始化,动态初始化
+
+    5) 静态变量IV(静态内部变量)
+        0> 格式 : const int var = 5;    *在代码块外的const同时充当了const和static的功能
+        1> 定义位置 : 代码块外
+        2> 储存持续性 : 静态储存
+        3> 作用域和链接性 : 文件作用域,内部链接性      
+        *这是为了方便在头文件中定义静态变量时，各个引用头文件的源代码文件不会冲突单定义规则
+        *所以常量常常放在头文件内
+    6) 静态变量V(静态外部变量)
+        0> 格式 : extern const int var = 5;    *这里的extern语义不同于引用声明中的extern语义
+        1> 定义位置 : 代码块外
+        2> 储存持续性 : 静态储存
+        3> 作用域和链接性 : 全局作用域,外部链接性      
+
+六、全局变量:
+    1) 单定义规则(One Definition Rule)规定全局变量只能有一次定义
+        为此C++提供了两种全局变量声明方式:
+            1) 定义声明  -  为外部变量分配储存空间
+                int var;
+            2) 引用声明  -  使用关键字extern,不给外部变量分配储存空间
+                extern int var;
+        如果要在多个文件中使用全局变量，只能在一个文件中提供定义声明，在使用该变量的其它文件中使用引用声明
+    2) 变量名相同时，作用域小的变量会自动覆盖作用域大的变量
+        可以使用作用域解析运算符::来访问被覆盖的全局变量    
+            var = 5;
+            ::var = 5;
+    3) 不可以在同一文件中定义声明同名的内部变量和全局变量
+        但可以在不同文件中分别定义声明同名的内部变量和全局变量
+        //file1
+        int var;
+
+        //file2
+        extern int var;    *引用全局变量
+        or
+        static int var;    *定义新的内部变量
+        not
+        int var;    *重复定义全局变量,违反了单定义规则
+
+七、cv限定符和mutable:
+    1) c指的是const常量
+    2) v指的是volatile不稳定量
+        关键字volatile表明，即使程序代码没对内存单元进行修改，该变量的值也可能发生变化(硬件或其他程序行为)
+        volatile要求编译器不将该变量缓存入寄存器而是次次查询内存
+    3) 对const结构或类中的变量使用mutable关键字可以使其被允许修改
+
+八、函数和链接性:
+    单定义规则规定函数的定义必须是唯一的,但函数的原型可以不唯一,所以可以把函数原型放入头文件中
+    内联函数不受此限制,所以内联函数可以被放入头文件中,但同一个内联函数的所有定义应该相同
+
+    1) 外部函数(默认)
+        0> 格式 : 
+            int func(int x);
+            int func(int x)
+            {
+                body
+            }
+        1> 定义位置 : 代码块外
+        2> 储存持续性 : 静态储存
+        3> 作用域和链接性 : 全局作用域,外部链接性
+    2) 内部函数
+        0> 格式 : 
+            static int func(int x);
+            static int func(int x)
+            {
+                body
+            }
+        1> 定义位置 : 代码块外
+        2> 储存持续性 : 静态储存
+        3> 作用域和链接性 : 文件作用域,内部链接性
+
+十、语言链接性:
+    略(p319)
+    *在C++程序中使用C库中预编译的函数时候可能会遇到
+
+十一、动态变量:
+    动态变量(指针)的储存方案和作用域规则同自动变量和静态变量，但分配的(内存单元)会持续存在直到遇到delete
+    关于new运算符重载和定位new运算符:
+        暂略(p321)
+
+十二、名称空间:
+    名称空间: 
+        声明区域 : 可以在其中进行声明的区域
+        潜在作用域 : 变量的潜在作用域从声明点开始，到其声明区域的结尾
+        每个声明区域都可以声明名称，这些名称独立于其他声明区域的名称
+        声明区域允许嵌套，比如说在代码块外声明的变量属于全局/文件声明区，而局部声明区被包含在其中
+
+        名称空间 -> 指的就是 -> 声明区域
+
+    全局名称空间:
+        跨文件的声明区域，全局变量就位于全局名称空间
+
+十三、自定义的名称空间:
+    1) C++允许定义一个新的声明区域来创建新的名称空间,一个名称空间的名称不会与另一个名称空间的相同名称发生冲突
+        namespace Math {
+            variable declaration
+            structure declaration
+            function prototpe    *头文件
+        }
+    自定义的名称空间可以位于全局名称作用域，可以位于另一个名称空间，不可以位于代码块名称空间中
+    自定义的名称空间一般链接性是外部的
+    名称空间中的声明和定义规则同全局声明和定义规则
+    2) 名称空间是开放的，可以把名称加入到已有的名称空间中
+        namespace Math {
+            new variable declaration
+            new structure declaration
+            function definition    *源代码文件I
+        }
+    3) 访问给定名称空间中的名称
+        1> 作用域解析运算符::
+            Math::pi
+        2> using声明和using编译指令
+            using指令将特定的名称/名称空间加入它所属的声明区域中(如果是在代码块外会加入文件声明区)
+            using Math::pi;    -    using声明
+            using namespace Math;    -    using编译指令
+        如果自定义名称空间和声明区域定义了相同的名称，使用using声明将会出错，
+        使用using编译指令则局部版本将隐藏自定义名称空间版本
+    4) 名称空间技巧    
+        1> 允许嵌套名称空间,导入总空间时会把子空间一并导入(因为声明顺序问题也防止了循环导入...)
+        2> 允许一个变量处于多个名称空间
+        3> 允许给名称空间创建别名
+            namespace CIR = Math::Geometric::Circle;
+        4> 未命名名称空间可以用来创建静态内部变量,而已命名名称空间必须使用::或者using来访问空间中的变量
+        namespace {
+            float pi = 3.14;
+        }
+        int main()
+        {
+            cout << pi;
+        }
+        5> 标准做法是使用已命名的名称空间中的变量，而不是静态全局变量
+            使用未命名的名称空间中的变量，而不是静态内部变量？
+            尽可能使用作用域解析运算符和using声明，而不是using编译指令(尽可能缩小using指令的影响范围)
+
+<<<<<<<<<<PART SIX OOP/类>>>>>>>>>>
+一、类声明:
+    class Queue
+    {
+    private:    <-    类成员可以访问，外部不可以访问(默认)
+        variable declaration
+        structure declaration
+        function prototpe
+        function definition    (将会成为内联函数)
+    protected:
+        ...
+    public:    <-    外部可以访问
+        ...
+    }
+    *定义类成员函数时,使用作用域解析运算符::来标识所属的类
+        int Queue::size(){return m_length}
+    *而在类成员函数内部,因为属于类作用域,调用其它类方法不需要运算符::
+    *其定义位于类声明中的函数都将自动成为内联函数,或者使用inline限定符(但要把内联函数的定义放在定义类的头文件中)
+二、创建和使用对象:
+    1) 创建对象:
+        Queue bankQueue;
+    2) 调用成员函数:
+        bankQueue.size();
+三、类的构造函数和析构函数:
+    1) 构造函数:
+        声明: 
+        Queue(int length);
+        定义:
+        Queue::Queue(int length){...}
+        *构造函数与类同名，且没有声明类型
+        *构造函数用来创建对象和初始化私有成员，不能通过对象调用
+        *没有定义构造函数的时候，编译器会提供默认构造函数Queue();定义了构造函数之后，编译器将不继续提供
+    2) 析构函数:
+        声明: 
+        ~Queue(int length);
+        定义:
+        Queue::~Queue(int length){...}
+        *析构函数与类同名但前带~，且没有声明类型
+        *析构函数用来析构成员，将在对象结束时被自动调用
+        *没有定义析构函数的时候，编译器会提供默认析构函数Queue();定义了析构函数之后，编译器将不继续提供   
+    3) 构造函数和成员初始化:先初始化(构造)类成员,再调用构造函数对类成员进行赋值运算
+
+        假设B包含成员对象A
+            class B
+            {
+            public:
+                A a;
+                B(){a = A(5)};
+                ~B();
+            }
+        创建B对象时，发生的顺序是:
+            调用A构造函数初始化a
+            调用B构造函数
+                调用A赋值运算符
+        析构B对象时，发生的顺序是:
+            调用B析构函数
+            调用A析构函数
+
+四、const对象:
+    不能在const对象上调用普通方法
+    int size();
+    int Queue::size(){return m_length}
+    --------
+    const Queue bankQueue;
+    bankQueue.size();    <-    出错
+
+    需要方法保证不会修改调用对象
+    int size() const;
+    int Queue::size() const {return m_length}
+五、this指针:
+    1) 等同于python中的self,只是位于类作用域时默认可以省略,也可以通过this->来调用类成员
+    2) 可以通过retrun this;来返回对象自身
+六、类中的常量:
+    这样的语法是行不通的
+    private:
+        const int Months = 12;    *常数非静态成员不能在类声明中初始化
+        double costs[Months];    
+    因为类声明只是描述了对象的形式，并没有创建对象。可以1)声明枚举
+    private:
+        enum {Months = 12};
+        doule costs[Months];
+    也可以2)使用关键字static使该常量与其他静态变量储存在一起
+    private:    
+        static const int Months = 12;    *非常数静态成员不能在类声明中初始化
+        double costs[Months];
+七、作用域内枚举:
+    传统的枚举可能发生同名冲突
+    enum egg {small,Medium,Large}
+    enum shirt {small,Medium_small,Medium,Large}
+    可以声明一种枚举，其枚举的作用域为类
+    enum class egg {small,Medium,Large}
+    enum class shirt {small,Medium_small,Medium,Large}   
+    调用时需要使用枚举名来限定枚举量egg::Large，而且取消了enum到int的自动隐式转换
+
+<<<<<<<<<PART SEVEN 类的进阶>>>>>>>>>>
+一、运算符重载:
+    1) 重载的运算符必须是有效的C++运算符
+    2) 运算符重载的语法
+    public:
+        Queue operator+(const Queue & q) const;
+        ||
+        type operatorop(argumentlist);
+    3) 重载的限制
+        1> 重载后的运算符必须至少有一个操作数是用户定义的类型
+        2> 使用运算符时不能违反运算符原来的句法规则(操作数的数量,运算符的优先级)
+        3> 不能创建新的运算符
+        4> 不能重载下列运算符{. .* :: ?: sizeof  typeid const_cast  ..._cast}
+        5> 运算符一般都可以通过成员或者非成员函数进行重载，但下列运算符只能通过成员函数进行重载{= () [] ->}
+    
+二、友元函数:
+    因为成员函数运算符重载使用时必须前一项为对象(方法调用)(queue*1.5)，
+    而非成员函数运算符重载可以提供前一项不为对象的运算符重载(1.5*queue)，但可能无权访问私有成员，
+    所以引入了友元,友元能使用对象的私有成员和保护成员
+    创建友元函数:
+        1) friend原型放在类声明中
+            friend Queue operator*(double m, const Queue & q);
+        2) 函数定义
+            Queue operator*(double m, const Queue & q){...}
+    *常见的友元有 : 重载<<运算符用来输出
+        ostream & operator<<(ostream & os, const Queue & q){
+            os << ...;
+            return os    <-    为了实现cout << queue << endl这样的连续输出
+        }
+三、类的自动转换和强制类型转换:
+    C++编译器会自动进行隐式转换(操作数为1时)
+        Queue(int length);
+        ---------------------
+        Queue queue;
+        queue = 5;    <-    程序先使用构造函数Queue(int length)创建了一个临时的queue对象,并将5作为初始化值
+                            再通过隐式复制构造函数将临时对象对的内容复制到queue中
+    可以通过关键字explicit来声明显式转换，关闭隐式转换
+        explicit Queue(int length);
+        ---------------------
+        Queue queue;
+        queue = (Queue) 5
+    隐式转换会被用在:
+        1> 将Queue对象初始化为int值时  :  Queue queue = 5;
+        2> 将int值赋给Queue对象时  :  queue = 5;
+        3> 将int值传递给接收Queue参数的函数时  :  int size(Queue & q); size(5);
+        4> 返回值被声明为Queue的函数试图返回int值时
+        5> 在上述任一种情况下，使用可转换为int类型的内置类型时(char)
+    转换函数:
+        构造函数将其它类型转换为对象，转换函数将对象转换成其它类型
+        operator int()
+        ||
+        operator typeName();
+        1> 转换函数必须是类方法
+        2> 转换函数不能指定返回类型(没必要,typeName已经指定了)
+        3> 转换函数不能有参数
+        4> 可以使用关键字explicit来声明显式转换，关闭隐式转换
+四、复制构造函数和赋值运算符:
+    1) 复制构造函数用于将一个对象复制到新创建的对象中
+        它用于复制初始化(+按值传递,按值返回)过程中，而不是常规的赋值过程中
+        Queue bridgeQueue = bankQueue;
+            *实际是Queue bridgeQueue = Queue(bankQueue);
+            *隐式调用了Queue(const Queue &)
+        原型:
+            Class_name(const Class_name &);
+    2) C++自动提供了下面这些成员函数:
+        默认构造函数，如果没有定义构造函数
+        默认析构函数，如果没有定义
+        复制构造函数，如果没有定义(默认浅复制)
+        赋值运算符，如果没有定义
+        地址运算符，如果没有定义
+    3) 赋值运算符
+        Queue & operator=(const Queue &);
+        return *this
+
+        #s0=s1=s2相当于s0.operator=(s1.operator=(s2))
+            这里的return实际上是方程式(s1=s2)的返回值
+        #返回引用，方便连等
+    4) 中括号运算符
+        bankQueue[4]实际调用了bankQueue/operator[](4)
+        int operator[](int);
+        int Queue::operator[](int i){...}
+    5) 构造函数，析构函数，复制构造函数，赋值运算符的一个实例
+        {
+            test a;    //a调用构造函数
+            test b;    //b调用构造函数
+            test c = a;    //c调用复制构造函数
+            c = a;    //c调用赋值运算符
+
+            【void f(test t) {}】
+            f(b);
+            {
+                t调用复制构造函数    *如果是按引用传递，则t的这两次调用不存在
+                t调用析构函数
+            }
+
+            【test f(test t){return t}】
+            f(b);
+            {
+                t调用复制构造函数    *如果是按引用传递，则t的这两次调用不存在
+                临时变量调用复制构造函数    *如果是按引用返回，则临时变量的这两次调用不存在
+                t调用析构函数
+            }
+            临时变量调用析构函数
+
+            c = f(b);
+            {
+                t调用复制构造函数    *如果是按引用传递，则t的这两次调用不存在
+                临时变量调用复制构造函数    *如果是按引用返回，则临时变量的这两次调用不存在
+                t调用析构函数
+            }
+            c调用赋值运算符
+            临时变量调用析构函数
+
+            test c = f(b);
+            {
+                t调用复制构造函数    *如果是按引用传递，则t的这两次调用不存在
+            }
+            c调用复制构造函数
+            t调用析构函数   
+        }
+
+五、const和静态类成员:
+    静态变量
+        静态变量 在类定义外初始化
+        const静态变量 在类定义里初始化
+        const变量 在初始化列表中初始化
+        普通变量 在构造函数,初始化列表中初始化
+    静态函数(类方法)
+        static int HowMany(){return num_strings}
+        只能通过类调用，不能通过对象调用
+        Queue::HoWMany()
+六、成员初始化列表:
+    1) 类构造函数可以用如下语法来初始化数据成员
+        Classy::Classy(int n, int m) : mem1(m),men2(n*m)
+        {
+            ......
+        }
+        这些初始化工作是在对象创建时完成的，此时还未执行括号中的任何代码
+        注意:
+            1> 这种格式只能用于构造函数
+            2> 必须用这种格式来初始化非静态const数据成员
+            3> 必须用这种格式来初始化引用数据成员
+            4> 数据成员被初始化的顺序与它们出现在类声明中的顺序相同，与初始化器中的排列顺序无关
+    2) 也可以更直观地在类内初始化，相当于是创建了默认值，会被构造函数赋予的新值覆盖
+        class Classy{
+            int mem1 = 10;
+            const int mem2 = 20
+        }
+<<<<<<<<<PART EIGHT 类的继承>>>>>>>>>>
+一、公有派生:
+    class B : public A
+    {
+
+    }
+    1> 子类继承了基类的所有成员，但只能访问基类的公有成员和保护成员
+    2> 子类构造函数必须使用基类构造函数(为了能初始化基类私有变量)
+        可以在成员初始化列表调用基类构造函数
+            B::B(...) : A(...)
+            {
+
+            }
+    3> 子类对象构造流程
+        1) 创建基类对象
+        2) 子类构造函数调用基类构造函数初始化基类的成员
+        3) 子类构造函数初始化新增的成员
+    4> 子类对象析构流程
+        1) 调用子类析构函数
+        2) 自动调用基类析构函数
+        
+二、继承:is-a关系:
+    1> 基类和子类之间的特殊关系
+        基类指针&引用可以指向子类对象，不过都只能调用基类的方法
+        基类,子类都可传入于函数的基类指针&引用参数
+        可以用子类对象初始化基类对象，因为基类对象的复制构造函数的参数是一个基类引用
+        可以把子类对象赋值给基类对象，因为基类对象的赋值运算符的参数是一个基类引用
+    2> 关系模型
+        is-a -> 属于 <- 继承
+        has-a -> 拥有 <- 数据成员
+        use-a -> 使用 <- 友元
+
+三、多态公有继承和虚方法:
+    1> 多态 : 子类对象调用了基类方法，但希望调用的是子类方法，这样，方法的行为随着对象的不同而异
+    2> 实现方式 ： 
+        1) 在子类中重新定义基类方法
+            基类对象 -> 基类方法, 子类对象 -> 子类方法
+            基类指针&引用 -> 基类方法, 子类指针&引用 -> 子类方法
+
+        2) 将基类方法定义为虚方法(子类方法会继承虚属性),再在子类中重新定义基类方法
+            基类对象 -> 基类方法, 子类对象 -> 子类方法
+            指向基类的基类指针&引用 -> 基类方法, 指向子类的基类指针&引用 -> 子类方法
+            指向子类的子类指针&引用 -> 子类方法
+
+    #在子类方法中，可以使用作用域解析符::来调用基类方法
+    #基类应包含一个虚析构函数，防止指向子类的基类指针&引用只调用了基类的析构函数而没有调用子类的析构函数
+        哪怕该虚析构函数不执行任何操作
+        #子类的析构函数会在结束时自动调用基类的虚构函数
+    #构造函数不能作为虚函数，构造子类对象时不存在动态绑定的问题
+    3> 重新定义继承的方法不会出现重载，而是完全覆盖同名名基类方法
+
+四、动态绑定:
+    1> 绑定 : 编译器将源代码的函数调用解释为特定的函数代码块
+        静态绑定 : 在编译时，编译器将源代码的函数调用解释为特定的函数代码块
+        动态绑定 : 在运行时时，编译器生成了程序将源代码的函数调用解释为特定的函数代码块
+            因为虚函数的存在使编译器不能确定同是基类指针，调用的究竟是哪个函数
+    2> 向上强制转换 : 将子类指针&引用 "转换为"(子类赋给) 基类指针&引用
+        自动隐式转换，安全
+    向下强制转换 : 将基类指针&引用 "转换为"(子类赋给) 子类指针&引用
+        需要显式转换，不安全
+    3> 虚函数和动态绑定
+        A * ptr;
+        if ...
+            ptr = new A;
+        else
+            ptr = new B;
+        ptr.f();
+        如果f不是虚函数:
+            在编译时，编译器将根据ptr指针的类型，将f静态绑定为基类A的f方法
+        如果f是虚函数:
+            在编译时，编译器将不能判断f是基类还是子类方法
+            在运行时，编译器生成的代码将在程序执行时，对f进行动态绑定
+            #优点 : 灵活
+            #缺点 : 额外的开销
+    4> 虚函数的工作原理
+        每个对象添加一个隐藏成员:指向虚函数表的指针
+        每个类维护一张虚函数表:表保存了特定类的所有虚函数的地址
+        虚函数调用时，程序会根据隐藏成员查找对应的虚函数表，来确定函数的地址
+        #开销:每个对象占据的额外储存空间，每个类的虚函数表的空间，函数调用的额外查表工作
+
+五、抽象基类ABC和纯虚函数:
+    在抽象基类中使用纯虚函数来提供未实现的函数
+        virtual f() = 0
+    当类声明中包含纯虚函数时，不能创建该类的对象
+    纯虚函数允许有定义
+六、继承和动态内存分配:
+    如果基类使用了new动态内存分配:
+        1> 子类不使用new
+            子类不需要显式定义析构函数,复制构造函数,赋值运算符
+            1) 子类会提供默认析构函数，该函数结束后会自动调用基类析构函数
+            2) 子类会提供默认复制构造函数，该函数在复制类成员或者继承的类组件时，会自动调用对应类的复制构造函数来完成
+            3) 子类会提供默认赋值运算符，该函数与复制构造函数同理
+        2> 子类使用new
+            子类需要显式定义析构函数,复制构造函数,赋值运算符
+            子类的析构函数,复制构造函数,赋值运算符都必须使用相应的基类方法来处理基类元素
+            1) 析构函数
+                son::~son()
+                {
+                    delete [] label;
+                }
+                #子类析构函数结束后会自动调用基类析构函数
+            2) 复制构造函数
+                son::son(const son & sn)
+                    : base(sn)
+                {
+                    label = new char[std::strlen(sn.label)+1]
+                    std::strcpy(label,sn.label)
+                }
+                #通过在初始化成员列表中调用基类的赋值构造函数来处理基类元素
+            3) 赋值运算符
+                son & son::operator=(const son & sn)
+                {
+                    if (this == &sn)
+                        return *this;
+                    base::operator=(sn);  // 等于*this = sn;  use base::operator=()
+                    delete [] label;
+                    label = new char[std::strlen(sn.label)+1]
+                    std::strcpy(label,sn.label)
+                    return *this                    
+                }
+                #通过使用作用域解析运算符显式调用基类的赋值运算符来处理基类元素
+七、继承和友元:
+    派生类如何使用基类友元
+        std::ostream & operator<<(std::ostream & os, const son & sn)
+        {
+            os << (const base &)sn;
+            os << sn.label << endl;
+            return os
+        }
+        因为友元不是成员函数，无法使用作用域解析符
+        所以应使用强制类型转换，以便匹配原型时能够选择正确的函数
+        最好是用dynamic_cast<>来进行强制类型转换
+
+八、按值传递和按引用传递:
+    按值传递:
+        慢、不可以修改实参
+    按引用传递:
+        快、可以修改实参、可以接受子类对象
+    按const引用传递:
+        快、不可以修改实参、可以接受子类对象
+九、返回对象和返回引用:
+    返回对象:
+        慢、返回不同的变量、安全(有赋值操作)
+    返回引用:
+        快、返回同一变量、可能不安全(无赋值操作,可能返回临时变量)
+    #实际上只要有赋值过程就是安全的，可控的
+
+十、使用const:
+    f(const A a);  ->  确保不修改参数
+    const A f();  ->  确保不修改返回值
+    f() const; -> 确保不修改调用的对象
+
+十二、接口和实现
+    公有继承 : 类获得接口，可能获得实现(纯虚函数提供接口但不提供实现)
+    包含成员 : 获得实现，不获得接口
+    私有继承&保护继承 : 获得实现，不获得接口
+    #接口指的是公有函数,实现指的是函数的定义
+
+十一、私有继承和保护继承
+    公有继承 - 基类的公有成员和保护成员 -> 子类的公有成员
+    私有继承 - 基类的公有成员和保护成员 -> 子类的私有成员
+    保护继承 - 基类的公有成员和保护成员 -> 子类的保护成员
+    1> 私有继承
+        class C : private A{
+        };
+        因为私有继承同包含成员一样，获得实现，不获得接口，所以也可以表示has-a关系
+        私有继承的子类引用&指针无法直接赋给基类引用&指针
+        不推荐用私有继承实现has-a关系，因为太抽象不易理解，其次容易遇到多重继承的问题，而且不能包含多个同类子对象
+        需要使用的情况:1)has-a关系需要包含保护成员或者2)has-a关系需要重新定义虚函数
+    2> 保护继承
+        使第三代子类可以访问基类的公有方法
+        class D : protected A{
+        };
+        保护继承的子类引用&指针可以直接赋给基类引用&指针
+
+    3> 使用using重新定义访问权限
+        在保护继承或者私有继承时，如果希望能在子类对象上调用基类方法，可以
+        1) 定义一个重名方法，在该方法中调用基类方法
+        2) 在子类的公有部分加入using声明,如:
+            public:
+                using std::valarray<int>::max
+                using std::valarray<int>::operator[]
+            于是可以在对象上直接调用max : ada.max()
+
+十二、多重继承
+    大概率用不到，又太麻烦，p551自己翻书
+
+十三、类模板
+    大概率用不到，又太麻烦，p567自己翻书
+        
+

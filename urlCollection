@@ -1,0 +1,27 @@
+linux filesystem structure: 	https://www.linux.com/blog/learn/intro-to-linux/2018/4/linux-filesystem-explained
+				https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard
+
+Command line:			https://itsfoss.com/linux-command-tricks/
+				https://www.howtogeek.com/110150/become-a-linux-terminal-power-user-with-these-8-tricks/
+				https://www.howtogeek.com/111417/how-to-multitask-in-the-linux-terminal-3-ways-to-use-multiple-shells-at-once/
+				https://www.techrepublic.com/article/master-the-linux-bash-command-line-with-these-10-shortcuts/
+				https://www.tecmint.com/linux-command-line-bash-shortcut-keys/
+				https://itsfoss.com/read-compressed-log-files-linux/
+
+				http://www.lostsaloon.com/technology/how-to-chain-commands-in-linux-command-line-with-examples/
+				https://unix.stackexchange.com/questions/88850/precedence-of-the-shell-logical-operators
+
+
+Shell:				https://www.digitalocean.com/community/tutorials/how-to-read-and-set-environmental-and-shell-variables-on-a-linux-vps
+
+alias:				https://www.tecmint.com/create-alias-in-linux/
+CDPATH:				https://linux.101hacks.com/cd-command/cdpath/			#config them in ~/.bashrc
+
+terminal shortcut:		
+
+listener pattern:		http://arsenmk.blogspot.com/2012/07/simple-implementation-of-observer.html	
+
+others:				https://www.howtogeek.com/108511/how-to-work-with-the-network-from-the-linux-terminal-11-commands-you-need-to-know/
+				https://www.howtogeek.com/107217/how-to-manage-processes-from-the-linux-terminal-10-commands-you-need-to-know/
+				https://www.howtogeek.com/108890/how-to-get-help-with-a-command-from-the-linux-terminal-8-tricks-for-beginners-pros-alike/
+				https://www.howtogeek.com/125157/8-deadly-commands-you-should-never-run-on-linux/

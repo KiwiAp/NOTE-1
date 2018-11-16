@@ -1,0 +1,19 @@
+1.lambda:
+[ captures ] ( params ) -> ret { body }
+[ captures ] ( params ) { body }
+[ captures ] { body }
+
+PS:[captures] provide a method of accessing variables from the surrounding scope without going through (params)
+https://msdn.microsoft.com/en-us/library/dd293608.aspx
+https://en.cppreference.com/w/cpp/language/lambda
+
+2.listener pattern
+PS:listener pattern consist of object : listener and notifier, listener's pointer is registerd in notifier. 
+Once event happened, notifier will call the HandleNotification function of listener, so listener can respound to the event.
+http://arsenmk.blogspot.com/2012/07/simple-implementation-of-observer.html
+
+3.Internet Protocol
+
+802-11 : WIFI
+802-3 : ethernet(wired connection)
+802-11 : BlueTooth
