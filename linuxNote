@@ -61,6 +61,7 @@ Hardware
 	tlp - apply laptop power saving settings
 	lsblk - list block devices
 	fdisk - manipulate disk partition table
+	eject - eject removable media
 
 Text Dealer
 	grep- print lines matching a pattern
@@ -95,7 +96,7 @@ FIle system
 
 system
 	uname - print system information	
-
+	df - report file system disk space usage
 
 
 
