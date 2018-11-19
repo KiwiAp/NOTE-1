@@ -48,20 +48,37 @@ WIFI
 	wpa_supplicant - Wi-Fi Protected Access client and IEEE 802.1X supplicant
 	
 
+Diagnose network
+	DNS : host, nslookup, dig
+	ARP : arp
+
+	Connectivity : ping
+	Route : traceroute, mtr
+	Traffic : iftop
+
+	Socket : netstat, ss
+	Packet : tcpdump, nc
+	port : nmap		#[cat /etc/services] look for well know port number
+	
+
 Process & service
 	htop - interactive process viewer
 	ps - report a snapshot of the current processes
 	/etc/init.d - check all the service
 	service - run a System V init script
 	systemctl - Control the systemd system and service manager
+		sudo systemctl suspend - suspend system
 
 Hardware
 	lshw - list hardware
 	lspci - list all PCI devices
-	tlp - apply laptop power saving settings
 	lsblk - list block devices
+
 	fdisk - manipulate disk partition table
 	eject - eject removable media
+
+	tlp - apply laptop power saving settings
+	powertop - a power consumption and power management diagnosis tool.	
 
 Text Dealer
 	grep- print lines matching a pattern
@@ -92,11 +109,17 @@ log
 
 FIle system 
 	tree - list contents of directories in a tree-like format
-	tail - output the last part of files
+	tail - output the last part of files	
+	file - determine file type
 
 system
 	uname - print system information	
 	df - report file system disk space usage
+	dmidecode - DMI table decoder.This table contains a description  of  the  system's  				hardware  components,  as well as other useful pieces of information such 				as serial numbers and BIOS revision.
 
 
+mail
+	mail - process mail messages		#[sudo dpkg-reconfigure postfix] to reconfigure ; /etc/postfix/main.cf ; /var/log/mail.log
+
+gcc
 

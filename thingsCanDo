@@ -9,6 +9,15 @@ listener pattern
 
 WIFI
 
-Power Problem
+Power Problem(ok)
 	tlp
 	dmesg
+	powertop
+
+mail
+
+server
+
+pdf(ok)
+
+better terminal

@@ -17,3 +17,11 @@ http://arsenmk.blogspot.com/2012/07/simple-implementation-of-observer.html
 802-11 : WIFI
 802-3 : ethernet(wired connection)
 802-11 : BlueTooth
+
+4.cpp call shell
+system
+popen
+exec
+
+5. static library - shared object - DDL
+https://stackoverflow.com/questions/9688200/difference-between-shared-objects-so-static-libraries-a-and-dlls-so
