@@ -111,15 +111,34 @@ FIle system
 	tree - list contents of directories in a tree-like format
 	tail - output the last part of files	
 	file - determine file type
+	liof - list open files
+	mimetype - Determine file type
+	stat - display file or file system status
+
+	find - find a file
+	locate - locate a file
+
+	chmod - change file mode bits
+		stat -c %A <file> - show the file mod in -[rwx][rwx][rwx] for User,Group,Others
+		stat -c %a <file> - show the file mod in [7][7][7] for User,Group,Others
+		[rwx]=111(b)=[7], [---]=000(b)=[0]
+		#reference:https://en.wikipedia.org/wiki/Chmod
 
 system
 	uname - print system information	
 	df - report file system disk space usage
-	dmidecode - DMI table decoder.This table contains a description  of  the  system's  				hardware  components,  as well as other useful pieces of information such 				as serial numbers and BIOS revision.
+	dmidecode - DMI table decoder.This table contains a description  of  the  system's hardware  components,  as well as other useful pieces of information such as serial numbers and BIOS revision.
 
 
 mail
 	mail - process mail messages		#[sudo dpkg-reconfigure postfix] to reconfigure ; /etc/postfix/main.cf ; /var/log/mail.log
 
-gcc
+font 	
+	fc-cache - build font information cache files
 
+set default app for certain file type under GNOME:
+	1) use mimetype to determind the file type
+	2) find the .desktop file of the app, if not, write it on your own
+	3) place the .desktop file to the  /usr/share/applications  or  ~/.local/share/applications(locate mimeapps.list for web browser changing)
+	4) edit the defaults.list
+	reference:[1]https://developer.gnome.org/integration-guide/stable/desktop-files.html.en	

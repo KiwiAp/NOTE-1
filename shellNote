@@ -1,0 +1,28 @@
+0.
+!/bin/sh
+chmod 755 ./main.sh
+
+1.assign variable
+	var=value	#NO:(var = value), or shell see 'var' as command, '=','value' as it's arguments
+2.standard output
+	echo $var1 $var2	
+3.standard input
+	read var1	#read a line
+4.export & .
+	when calling ./main.sh, it spawn a new shell to run the script
+	and the variables of current shell will not share to it
+	expect using:
+		export var	#make variable environmental
+		. ./mian.sh	#source the script, effectively runing the script within current shell
+5.{}
+	1)seperate $var and following char
+		the following lines are different
+		echo "$Note_txt"	#echo variable $Note_txt
+		echo "${Note}_txt"	#echo variable $Note and "_txt"
+	2)behave like an array and exec a command recursively
+		echo test{1,2,3,4} 
+		echo "test{1,2,3,4}"
+6.loop
+	1) for i in 1 2 3 4 5
+	2) while [ $var != True ]
+	 
