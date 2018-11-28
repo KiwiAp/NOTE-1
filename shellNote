@@ -1,6 +1,6 @@
 0.
 !/bin/sh
-chmod 755 ./main.sh
+chmod 777 ./main.sh
 
 1.assign variable
 	var=value	#NO:(var = value), or shell see 'var' as command, '=','value' as it's arguments
@@ -24,5 +24,72 @@ chmod 755 ./main.sh
 		echo "test{1,2,3,4}"
 6.loop
 	1) for i in 1 2 3 4 5
-	2) while [ $var != True ]
-	 
+	2) for (( i=1; i<6; i++ ))
+	3) while [ $var != True ]
+	   do
+	       ...
+	   done
+7.[ or test
+	'[' is a symbolic link to 'test'
+	"$ type [" gives "[ is a shell builtin"
+        -eq Numeric Equality    if [ "$foo" -eq "9" ]
+        -ne Numeric Inquality   if [ "$foo" -ne "9" ]
+        -lt Less Than   if [ "$foo" -lt "9" ]
+        -le Less Than or Equal  if [ "$foo" -le "9" ]
+        -gt Greater Than    if [ "$foo" -gt "9" ]
+        -ge Greater Than or Equal   if [ "$foo" -ge "9" ]
+        -z  String is zero length   if [ -z "$foo" ]
+        -n  String is not zero length   if [ -n "$foo" ]
+        -nt Newer Than  if [ "$file1" -nt "$file2" ]
+        -d  Is a Directory  if [ -d /bin ]
+        -f  Is a File   if [ -f /bin/ls ]
+        -r  Is a readable file  if [ -r /bin/ls ]
+		-w  Is a writable file  if [ -w /bin/ls ]
+		-x  Is an executable file   if [ -x /bin/ls ]
+
+8.if 
+	if [ ... ]; then
+		...
+	elif [ ... ]; then
+		...
+	else
+		...
+	fi 
+9.case
+	case $var in
+		a) 
+			...
+			;;
+		b)
+			...
+			;;
+		*)
+			...
+			;;
+	esac
+10.special shell variable
+    $0  The filename of the current script.
+    $n  These variables correspond to the arguments with which a script was invoked.
+    $$  The process ID of the current shell.
+    $#  The number of arguments supplied to a script.
+    $@  All the arguments are individually double quoted. 
+    $*  All the arguments are double quoted.
+    $?  The exit status of the last command executed.
+    $!  The process ID of the last background command.
+    $_  The last argument of the previous command.
+    resource : [1]https://www.bogotobogo.com/Linux/linux_shell_programming_tutorial3_special_variables.php
+11.backtick`
+    var=`command`
+12.function
+    func()
+    {
+        ...
+    }
+13.
+    &   run command in background
+    &&  logic AND
+    ||  logic OR
+    !   logic NOT
+    ^   start of line
+    $   end of line
+    
