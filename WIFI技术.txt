@@ -46,17 +46,17 @@ Client BridgeÄ£Ê½£º×ÓÂ·ÓÉÆ÷->ÎÞÏßÍø¿¨È¥Á¬½ÓÖ÷Â·ÓÉÆ÷WIFI£¬£¨ÓÐÏß£©£¬²»ÐÎ³É¶ÀÁ¢Íø¶
 repeaterÄ£Ê½£¨ÇÅ½Ó£©£º×ÓÂ·ÓÉÆ÷->ÎÞÏßÍø¿¨È¥Á¬½ÓÖ÷Â·ÓÉÆ÷WIFI£¬£¨ÓÐÏß+ÎÞÏß£©£¬ÐÎ³É¶ÀÁ¢Íø¶Î
 repeater bridgeÄ£Ê½£¨ÖÐ¼Ì£©£º×ÓÂ·ÓÉÆ÷->ÎÞÏßÍø¿¨È¥Á¬½ÓÖ÷Â·ÓÉÆ÷WIFI£¬£¨ÓÐÏß+ÎÞÏß£©£¬²»ÐÎ³É¶ÀÁ¢Íø¶Î
 AdhocÄ£Ê½£¨µã¶Ôµã£©£ºº±¼û
-¶ÀÁ¢Íø¶ÎÒâÎ¶×ÅÂ·ÓÉÆ÷×÷ÎªÂ·ÓÉÆ÷£¬¿ÉÒÔ×öDHCP,NAT
-·Ç¶ÀÁ¢ÍøÕ¾ÒâÎ¶×ÅÂ·ÓÉÆ÷×÷Îª½»»»»ú£¬²»¿ÉÒÔ×öDHCP,NAT
+¶ÀÁ¢Íø¶ÎÒâÎ¶×ÅÂ·ÓÉÆ÷×÷ÎªÂ·ÓÉÆ÷£¬¿ÉÒÔ×öDHCP,NAT£¬µ«ÐÎ³ÉÁ½¸ö¾ÖÓòÍøÎÞ·¨»¥Áª
+·Ç¶ÀÁ¢ÍøÕ¾ÒâÎ¶×ÅÂ·ÓÉÆ÷×÷Îª½»»»»ú£¬²»¿ÉÒÔ×öDHCP,NAT£¬µ«ÔÚÍ¬Ò»¸ö¾ÖÓòÍø¿ÉÒÔ»¥Áª
 
 
-DNS,DHCP,NAT,ARP
 
 ¡¾ÍøÂçÊõÓï¡¿
 Internet£º»¥ÁªÍø£¬ÊÇÊÀ½çÉÏ×î´óµÄ¹ãÓòÍø
 WAN£º¹ãÓòÍø£¬ÓÉ¿çÔ½¶à¸öµØÇøµÄ¶à¸ö¾ÖÓòÍø×é³É£¬±ÈÈç´óÐÍ¿çµØÇøÆóÒµµÄÄÚ²¿ÍøÂç£¬¿ÉÊµÏÖÁ÷Á¿¿ØÖÆ/ÄÚ²¿Í¨Ñ¶µÈ¹¦ÄÜ
 LAN£º¾ÖÓòÍø£¬±ÈÈçÓÚ¼ÒÍ¥¡¢Ñ§Ð£¡¢ÆóÒµµÄÄÚ²¿ÍøÂç
 https://www.zhihu.com/question/51295773
+
 WLAN£ºÎÞÏß¾ÖÓòÍø
 VLAN£ºÐéÄâ¾ÖÓòÍø
 **http://network.51cto.com/art/201409/450885.htm
@@ -71,22 +71,56 @@ https://blog.csdn.net/lycb_gz/article/details/80345438
 Ethernet£ºÒÔÌ«ÍøÐ­Òé(802.3)£¬Ò»ÖÖ¾ÖÓòÍøÓÐÏßÍ¨ÐÅÐ­Òé£¬Î»ÓÚÎïÀí/Á´Â·²ã
 **https://baike.baidu.com/item/%E4%BB%A5%E5%A4%AA%E7%BD%91/99684?fr=aladdin
 
-NAT£ºÍøÂçµØÖ·×ª»»£¬¾ÖÓòÍøºÍ¾ÖÓòÍøÍ¨¹ý¹ãÓòÍøÍ¨ÐÐÊ±£¬Êý¾Ý°üÔÚ½ø³ö¹ãÓòÍøÊ±ÐèÒª½øÐÐµØÖ·×ª»»
-LAN_IPÖ»ÄÜÓÃÔÚ¾ÖÓòÍøÂ·ÓÉÓò£¬ÐèÒª×ª»»³ÉWAN_IP²ÅÄÜ½øÈë¹ãÓòÍøÂ·ÓÉÓò
-
 DHCP£º¶¯Ì¬Ö÷»úÉèÖÃÐ­Òé - Ö÷»úÏòDHCP·þÎñÆ÷ÉêÇëIPµØÖ·
 https://www.cnblogs.com/happygirl-zjj/p/5976526.html
 http://blog.51cto.com/tonyguo/163475
+#DHCPÇëÇóÊ§°Üºó¼ÆËã»ú»á×Ô¼º¸ø×Ô¼ºÒ»¸öµØÖ·£º169.254.0.0/16
+
+DNS£ºÓòÃûÏµÍ³ - Ö÷»úÏòDNS·þÎñÆ÷²éÑ¯ÓòÃû¶ÔÓ¦µÄIPµØÖ·
+https://www.cnblogs.com/gopark/p/8430916.html
+http://www.ruanyifeng.com/blog/2016/06/dns.html
 
 ARP£ºµØÖ·½âÎöÐ­Òé - Ö÷»úÏòÍøÂç¹ã²¥ÎÊÑ¯IPµØÖ·¶ÔÓ¦µÄMACµØÖ·
 https://baike.baidu.com/item/ARP/609343?fr=aladdin
 https://www.cnblogs.com/csguo/p/7527303.html
 	#ÎªÊ²Ã´Á¬×ÅÑ§Ð£WIFIÎÞ·¨ÉèÖÃ¾²Ì¬IPÄØ£¿´Ówireshark×¥°üÖÐÍø¹ØÒ»Ö±²»»Ø¸´ARPÀ´¿´£¬
-	Íø¹ØÉèÖÃÁË²»ÔÚDHCP×âÔ¼±íÀïµÄIP²»»ØÓ¦ARP¡£¶øÁ¬ÉÏÊÖ»úµÄÈÈµã¾Í¿ÉÒÔ×ÔÓÉÉèÖÃIPµØÖ·ÁË¡£
+	Íø¹ØÓ¦¸ÃÉèÖÃÁË²»ÔÚDHCP×âÔ¼±íÀïµÄIP²»»ØÓ¦ARP£¬ËùÒÔÃ»·¨UDP·¢°ü¸øÍø¹Ø¡£
+	¶øÁ¬ÉÏÊÖ»úµÄÈÈµã¾Í¿ÉÒÔ×ÔÓÉÉèÖÃIPµØÖ·ÁË¡£
 	#ÎªÊ²Ã´ping²»µ½ÊÖ»ú4GÍø¿¨µÄIPµØÖ·£¿´ó¸ÅÊÇÖÐ¹úÒÆ¶¯²»ÔÊÐí°É£º(
 
-DNS£ºÓòÃûÏµÍ³
-https://www.cnblogs.com/gopark/p/8430916.html
-http://www.ruanyifeng.com/blog/2016/06/dns.html
+ICMP£º»¥ÁªÍø¿ØÖÆ±¨ÎÄÐ­Òé - Ö÷»ú¡¢Â·ÓÉÆ÷Ö®¼äµÄ²éÑ¯ºÍ±¨¸æ²î´í
+https://www.cnblogs.com/Akagi201/archive/2012/03/26/2418475.html
+https://blog.csdn.net/deramer1/article/details/73480825
 
-#ÈîÒ»·åµÄ»¥ÁªÍøÐ­ÒéÈëÃÅ
+NAT£ºÍøÂçµØÖ·×ª»» - ÓÃÓÚ½«¾ÖÓòÍøµØÖ·×ª»»³É¹ãÓòÍøµØÖ·
+https://blog.csdn.net/u013597671/article/details/74275852
+https://blog.csdn.net/freeking101/article/details/77962312
+¡¾
+¾ÖÓòÍøµØÖ·£º
+	10.0.0.0/8
+	172.16.0.0/16¡«172.31.0.0/16
+	192.168.0.0/16
+	127.0.0.1 - Íø¿¨×Ô¼º
+
+¾ÖÓòÍøÄÚµÄËùÓÐÖ÷»úÓÐ¸÷×ÔµÄ¾ÖÓòÍøµØÖ·£¬µ«¹«ÓÃÍ¬Ò»(ÉÙÁ¿)¸ö¹ãÓòÍøµØÖ·£¬´Ó¶ø½ÚÊ¡ÁË¹ãÓòÍøµØÖ·+Òþ²Ø¾ÖÓòÍøÄÚÖ÷»ú
+
+ÍøÂçµØÖ·¶Ë¿Ú×ª»»NAPT£ºÍø¹Ø»á½«¾ÖÓòÍøµØÖ·Ó³Éäµ½×Ô¼ºµÄ¶Ë¿Ú(NAT)£¬È»ºóÓÃ×Ô¼ºµÄ¹ãÓòÍøµØÖ·ºÍ¶Ë¿ÚÈ¥ºÍ¹ãÓòÍøÖ÷»úÍ¨ÐÅ
+	¾ÖÓòÍøÄÚ²¿Í¨ÐÅ(¿ÉÒÔ)£¬ÒòÎªËûÃÇ¿ÉÒÔÍ¨¹ý¾ÖÓòÍøµØÖ··ÃÎÊ¶Ô·½
+	¾ÖÓòÍøÖ÷¶¯Ïò¹ãÓòÍøÍ¨ÐÅ(¿ÉÒÔ)£¬Íø¹ØNAT¿ÉÒÔ½«¹ãÓòÍøÊý¾Ý°ü×ª·¢¸ø¾ÖÓòÍøµÄÖ÷»ú
+	¹ãÓòÍøÖ÷¶¯Ïò¾ÖÓòÍøÍ¨ÐÅ(²»¿ÉÒÔ)£¬¹ãÓòÍøÊý¾Ý°üµÄÄ¿±êµØÖ·²»¿ÉÒÔÌî¾ÖÓòÍøµØÖ·
+	²»Í¬¾ÖÓòÍøÖ®¼äÖ±½ÓÍ¨ÐÅ(²»¿ÉÒÔ)£¬ÔÚ¹ãÓòÍøÀïµÄÊý¾Ý°üµÄÄ¿±êµØÖ·²»¿ÉÒÔÌî¾ÖÓòÍøµØÖ·
+	²»Í¬¾ÖÓòÍøÖ®¼ä¼ä½ÓÍ¨ÐÅ(¿ÉÒÔ)£¬²»Í¬¾ÖÓòÍøµÄÖ÷»úÖ÷¶¯Ïò¹ãÓòÍø·þÎñÆ÷Í¨ÐÅ
+		Ö÷»úA(¾ÖÓòÍøIP) <-> (¾ÖÓòÍøIP)Íø¹ØA(¹ãÓòÍøIP) <-> (¹ãÓòÍøIP)·þÎñÆ÷(¹ãÓòÍøIP) <-> (¹ãÓòÍøIP)Íø¹ØB(¾ÖÓòÍøIP) <-> (¾ÖÓòÍøIP)Ö÷»úB
+¡¿
+
+ÍøÂçÊý¾Ý°ü(UDP/TCP)£º
+	Ô´IPµØÖ·£¬Ô´¶Ë¿Ú
+	Ä¿±êIPµØÖ·£¬Ä¿±ê¶Ë¿Ú
+	#IPµØÖ·ÊÇÎªÁË¶¨Î»Ö÷»ú£¬¶Ë¿ÚÊÇÎªÁË¶¨Î»½ø³Ì
+	#IPv4·¶Î§£º0.0.0.0/32
+	#¶Ë¿Ú·¶Î§£º0~65536(0.0/16)
+
+
+#ÈîÒ»·å-»¥ÁªÍøÐ­ÒéÈëÃÅ http://www.ruanyifeng.com/blog/2012/05/internet_protocol_suite_part_i.html
+#Ç³Ä«Å¨Ïã-¼ÆËã»úÍøÂçÔ­Àí https://www.cnblogs.com/5iedu/category/994985.html
+#¿ÆÀ´-ÍøÂçÍ¨Ñ¶Ð­ÒéÍ¼ http://www.colasoft.com.cn/download/protocols_map.php
