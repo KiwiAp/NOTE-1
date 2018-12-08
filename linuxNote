@@ -31,6 +31,8 @@ WIFI
 		connect wifi : nmcli con up [id|uuid]
 		disconnect wifi : nmcli con down [id|uuid]
 		
+		show current wifi : iwgetid
+		
 		create hotspot : nmcli -p dev wifi hotspot ifname wlp2s0 ssid test password "12345678"
 		close hotspot : nmcli -p con down Hotspot
 		list hotspot connecter : iw dev wlp2s0 station dump
