@@ -1,0 +1,195 @@
+【网络术语】
+Internet：互联网，是世界上最大的广域网
+WAN：广域网，由跨越多个地区的多个局域网组成，比如大型跨地区企业的内部网络，可实现流量控制/内部通讯等功能
+LAN：局域网，比如于家庭、学校、企业的内部网络
+	https://www.zhihu.com/question/51295773
+
+WLAN：无线局域网
+VLAN：虚拟局域网
+	**http://network.51cto.com/art/201409/450885.htm
+
+VPN：虚拟专用网络，在公用网络上建立加密通讯的专用网络，应用在企业网络的远程访问
+	原理：终端A <-> VPN网关A<-> Internet <-> VPN网关B(真实网关/虚拟网卡) <-> 终端B
+	终端之间的通信将经过VPN网关中转，VPN网关将会对数据包进行加密封装和地址转换
+	隧道协议：PPTP、L2TP、IPSec、MPLS、GRE
+	https://blog.csdn.net/weixin_42075590/article/details/81025045
+	https://blog.csdn.net/lycb_gz/article/details/80345438
+
+Ethernet：以太网协议(802.3)，一种局域网有线通信协议，位于物理/链路层
+	**https://baike.baidu.com/item/%E4%BB%A5%E5%A4%AA%E7%BD%91/99684?fr=aladdin
+
+DHCP：动态主机设置协议 - 主机向DHCP服务器申请IP地址
+	https://www.cnblogs.com/happygirl-zjj/p/5976526.html
+	http://blog.51cto.com/tonyguo/163475
+	#DHCP请求失败后计算机会自己给自己一个地址：169.254.0.0/16
+
+DNS：域名系统 - 主机向DNS服务器查询域名对应的IP地址
+	https://www.cnblogs.com/gopark/p/8430916.html
+	http://www.ruanyifeng.com/blog/2016/06/dns.html
+
+ARP：地址解析协议 - 主机向网络广播问询IP地址对应的MAC地址
+	https://baike.baidu.com/item/ARP/609343?fr=aladdin
+	https://www.cnblogs.com/csguo/p/7527303.html
+		#为什么连着学校WIFI无法设置静态IP呢？从wireshark抓包中网关一直不回复ARP来看，
+		网关应该设置了不在DHCP租约表里的IP不回应ARP，所以没法UDP发包给网关。
+		而连上手机的热点就可以自由设置IP地址了。
+		#为什么ping不到手机4G网卡的IP地址？大概是中国移动不允许吧：(
+
+ICMP：互联网控制报文协议 - 主机、路由器之间的查询和报告差错
+	https://www.cnblogs.com/Akagi201/archive/2012/03/26/2418475.html
+	https://blog.csdn.net/deramer1/article/details/73480825
+
+NAT：网络地址转换 - 用于将局域网地址转换成广域网地址
+	https://blog.csdn.net/u013597671/article/details/74275852
+	https://blog.csdn.net/freeking101/article/details/77962312
+	
+	局域网地址：
+		10.0.0.0/8
+		172.16.0.0/16～172.31.0.0/16
+		192.168.0.0/16
+		127.0.0.1 - 网卡自己
+
+	局域网内的所有主机有各自的局域网地址，但公用同一(少量)个广域网地址，从而节省了广域网地址+隐藏局域网内主机
+
+	网络地址端口转换NAPT：网关会将局域网地址映射到自己的端口(NAT)，然后用自己的广域网地址和端口去和广域网主机通信
+		局域网内部通信(可以)，因为他们可以通过局域网地址访问对方
+		局域网主动向广域网通信(可以)，网关NAT可以将广域网数据包转发给局域网的主机
+		广域网主动向局域网通信(不可以)，广域网数据包的目标地址不可以填局域网地址
+		不同局域网之间直接通信(不可以)，在广域网里的数据包的目标地址不可以填局域网地址
+		不同局域网之间间接通信(可以)，不同局域网的主机主动向广域网服务器通信
+			主机A(局域网IP) <-> (局域网IP)网关A(广域网IP) <-> (广域网IP)服务器/路由器(广域网IP) <-> (广域网IP)网关B(局域网IP) <-> (局域网IP)主机B
+
+IPv6：互联网协议第6版
+	优点：无限的地址空间(16byte),更好的地址分类和路由,增强的组播和流控制,无状态地址自动配置,更好的移动性支持,更佳的安全性
+	过渡技术：隧道技术、网络地址转换/协议转换技术、双协议栈技术、DNS过渡技术
+	协议：IPv4,ARP,ICMP,IGMP -> IPv6,ND,ICMPv6,MLD
+		$基础：https://www.cnblogs.com/gavincome/articles/691384.html
+		$详细：http://www.cnblogs.com/qcloud1001/p/8780556.html
+		$包结构和地址：https://www.cnblogs.com/5iedu/p/7428530.html
+		$移动IPv6：https://baike.baidu.com/item/%E7%A7%BB%E5%8A%A8IPv6/7023847
+		$概括：https://baike.baidu.com/item/IPv6/172297?fr=aladdin
+		$概括：https://blog.csdn.net/hust_wh/article/details/315144
+
+
+
+【优秀资源】
+#阮一峰-互联网协议入门 http://www.ruanyifeng.com/blog/2012/05/internet_protocol_suite_part_i.html
+#浅墨浓香-计算机网络原理 https://www.cnblogs.com/5iedu/category/994985.html
+#知乎-五层网路模型 https://www.zhihu.com/question/20583641/answer/104529492?f3fb8ead20=29d476a5746f5dd5ae8a296354e817de
+#科来-网络通讯协议图 http://www.colasoft.com.cn/download/protocols_map.php
+
+
+【端口和套接字】
+端口：TCP/IP服务进程用于提供进程间通信的抽象概念
+套接字：一组相互绑定的[源地址,源端口]-[目标地址,目标端口]
+	
+	参数：
+		协议簇：AF_INET, AF_INET6, AF_UNIX
+		类型：SOCK_STREAM, SOCK_DGRAME, SOCK_RAW
+		协议：IPPORTO_TCP, IPPORTO_UDP, IPPORTO_RAW, IPPORTO_ICMP, IPPORTO_IP
+	
+	参数搭配；
+		AF_INET
+			SOCK_STREAM
+				IPPORTO_TCP, IPPORTO_IP
+			SOCK_DGRAME
+				IPPORTP_UDP, IPPORTO_IP
+			SOCK_RAW
+				IPPORTP_RAW, IPPORTP_ICMP, IPPORTP_UDP, IPPORTP_IP
+			#IPPORTO_IP是根据SOCK自动识别,IPPORTO_ICMP是第3层协议没有UDP首部,IPPORTO_RAW的Protocal参数是255
+
+	参数说明：
+		AF决定第3层数据包
+		SOCK决定第4层数据包首部和第4层通信机制(握手ACK/纯发包),
+			SOCK_STREAM,SOCK_DGRAME发包时自动填写首部和处理通信机制，收包时得到对应IPPORTO的包的数据部分(4层数据)
+			SOCK_RAW发包时不填写第4层首部,收包时得到不经内核处理的对应IPPORTO的包(3+4层)[需要管理员权限]
+		IPPORTO决定第3层的Protocol参数
+
+	分析方法：
+		#python向局域网发包，用wireshark抓包分析
+		#python向本机发包，用SOCK_RAW监听的py程序捕获，导入二进制文件用WINHEX分析	#SOCK_RAW监听时，数据至少要能到达对应端口
+		
+
+
+【五层网络模型】
+1)物理层和数据链路层：由网卡物理实现
+	功能：建立广播通信的局域网
+	问题：广播顺序 和 收发对象
+	方法：CSMA/CD协议(带冲突检测的载波侦听多路访问协议:决定广播顺序) 和 MAC地址(媒体访问控制地址:局域网通信)
+	协议：802.3(以太网协议:局域网有线广播的链路层协议,包含LLC,MAC,CSMA),802.11(WIFI协议),802.15(蓝牙协议),
+			#HDLC(高级数据链路控制协议:广域网的链路层协议),PPP(点对点协议:连接广域网和局域网的点对点的链路层协议)
+	数据包：以太帧(14头+1500数据+4尾)	MTU=1500
+		$数据链路：https://www.cnblogs.com/5iedu/p/6954317.html
+		$广域网链路层协议：https://max.book118.com/html/2018/0609/171819409.shtm
+		$PPP协议：https://blog.csdn.net/huyoufu200920201078/article/details/41926707
+		#数据链路层还负责链路管理,帧管理,流量控制,差错控制
+
+2)网络层：由内核中的TCP/IP服务进程实现
+	功能：建立由局域网和广域网组成的大型网络
+	问题：广播风暴 和 路由
+	方法：网络地址(IP地址),子网掩码,网关 和 路由算法
+	协议：IP协议(互联网协议:局域网间/广域网内通信),ARP协议(地址解析协议:局域网地址->MAC地址),
+		  ICMP协议(互联网控制报文协议:查询/报错网络状态), #IGMP(互联网组地址管理协议:管理组播分组),
+		  NAT技术(网络地址转换技术:局域网地址<->广域网地址),VPN技术(虚拟专用网络:利用隧道协议在广域网上建立虚拟局域网)
+		  
+	数据包：IP数据包(20头+[0,65515]数据)	MSS=1480	#超过1480长度的IP包会被切片发送
+		$IP地址：https://www.cnblogs.com/5iedu/p/7040429.html
+
+3)传输层：由内核中的TCP/IP服务进程实现
+	功能：建立可靠的稳定的网络通信
+	问题：丢包 和 网络堵塞
+	方法：握手,ACK 和 窗口
+	协议；TCP协议(传输控制协议),UDP协议(用户数据报协议)
+	数据包：TCP数据包(20头+[0,65495]数据)	MSS=1460
+			UDP数据包(8头+[0,65508]数据)	MSS=1472
+
+4)应用层：由响应的进程实现
+	功能：建立同种服务的统一通信格式
+	问题：跨软件通信 和 网络辅助功能
+	方法：-
+	协议：HTTP协议(超文本传输协议:传输网页),FTP协议(文件传输协议:传输文件),SMTP协议(简单邮件传送协议:传输邮件)
+		  DHCP协议(动态主机设置协议:分配局域网地址), DNS协议(域名解析协议:域名->IP地址),
+		  #LLMNR 和 MDNS 和 NBNS(链路本地多播名称解析 和 组播DNS协议 和 网络基本IO系统名称服务器协议:组播解析局域网主机名/NetBIOS名->IP地址)
+		  SSH(v2)协议(安全外壳协议:远程登陆)
+		  
+	
+【上网】
+1)连上WIFI,得到网关地址、DHCP服务器地址、DNS服务器地址
+2)ARP服务进程向网关查询网关MAC地址
+3)DHCP服务进程向DHCP服务器申请IP地址
+3)ARP服务进程广播问询IP地址是否已存在
+4)IGMP服务进程加入组播小组, LLMNR 和 MDNS 和 NBNS服务进程组播解析局域网主机IP地址
+
+5)DNS服务进程向DNS服务器查询百度域名对应的IP地址
+6)谷歌浏览器进程根据HTTP协议生成应用层数据,交给TCP/IP服务进程构建TCP数据包并发向目标地址
+7)TCP数据包在经过网关时被拦截,通过NAT地址转换映射到网关端口,以网关广域网地址为源地址重新发向目标地址
+8)目标服务器的TCL/IP服务进程接受数据包传给HTTP服务器进程，HTTP服务器进程生成数据包通过TCL/IP服务进程向网关发回
+9)网关接收数据包,并通过NAT地址转换映射还原出主机的局域网地址和端口，以局域网地址为目标地址向主机发回
+10)TCP/IP服务程序接收数据包,将数据包通过对应端口传给谷歌浏览器
+11)谷歌浏览器根据HTTP协议和HTML语言分析数据包,得到网页
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
