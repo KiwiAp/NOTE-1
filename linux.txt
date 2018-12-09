@@ -1,0 +1,1 @@
+ssh后按键失灵的问题: http://hints.macworld.com/article.php?story=20040930002324870

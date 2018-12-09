@@ -1,0 +1,25 @@
+https://www.cnblogs.com/nelsen-chen/p/9122629.html
+python解释器：CPython(官方), IPyhon(交互增强), PyPy(速度增强), Jython(java字节码), IronPython(.Net字节码)
+python编译器：cx_freeze, py2exe, pyinstaller
+python的超集：Cython
+
+WIN以管理员权限运行.py : https://blog.csdn.net/MemoryD/article/details/83148305
+
+学习新库技巧：在VSC上用自动填充把全部函数过一遍
+库依赖：使用requirements.txt  https://www.cnblogs.com/zelos/p/7439599.html
+
+信号: https://www.cnblogs.com/madsnotes/articles/5688681.html
+
+服务器模型 : https://www.cnblogs.com/RayMin/p/5310612.html
+			 http://www.cnblogs.com/RayMin/p/6374887.html
+			 https://www.jianshu.com/p/6a6845464770
+			 
+		client 断开后 server 的recive会变成非堵塞且返回空字符串: https://blog.csdn.net/xhw88398569/article/details/47102187
+		
+argparse: https://www.cnblogs.com/yymn/p/8056487.html
+		  # argparse解析字符串: https://stackoverflow.com/questions/8878478/how-can-use-pythons-argparse-with-a-predefined-argument-string
+configobj: 用自动补全看吧
+logging: https://www.cnblogs.com/yyds/p/6901864.html
+         https://www.cnblogs.com/liujiacai/p/7804848.html
+
+os:	https://www.cnblogs.com/juandx/p/4962089.html

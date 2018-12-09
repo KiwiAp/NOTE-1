@@ -1,0 +1,18 @@
+man hostapd
+man hostapd_cli
+
+man wpa_supplicant
+man wpa_supplicant.conf
+man wpa_cli
+
+man ifup
+man ifdown
+man interfaces
+man ifconfig
+
+man dhcpcd
+man dhcpcd.conf
+man dhclient.conf
+
+man systemd-resolved
+man resolved.conf
