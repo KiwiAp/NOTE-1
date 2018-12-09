@@ -1,5 +1,5 @@
 ﻿gcc：
-
+http://tldp.org/HOWTO/Program-Library-HOWTO/shared-libraries.html
 1.文件类型:
 	.c 	(预处理前c) 
 	.i 	(预处理后c) 
@@ -10,14 +10,14 @@
 
 
 2.编译过程
-	预处理器：.c->.i  		option: -E
+	预处理器：.c->.i  	option: -E
 	编译器：.i->.s 		option: -S
 	汇编器：.s->.o		option: -c
 	链接器：.o->.so /.exe	option: default
 
 
 3.其它参数
-	-o <file>		指定生成文件名为<file>
+	-o <file>	指定生成文件名为<file>
 	-I <directory>	将<directory>作为寻找头文件的目录    #大写i
 	-L <directory>	将<directory>作为寻找链接库文件的目录
 	-l<xxx>		指定程序要链接的库为<libxxx.>     #小写L    #可以是libxxx.os也可以是libxxx.a
@@ -26,6 +26,19 @@
 
 	-v 		显示编译器调用的程序
 	-Wall 		显示警告信息
+
+	-Wl,rpath,<path>    set the RPATH or RUNPATH for the shared object
+	
+	RPATH_GUIDE : ***https://amir.rachum.com/blog/2016/09/17/shared-libraries/***
+	#how to see the RPATH of the ELF : readelf -d a.out	
+	#how to change between RPATH and RUNPATH : --disable-new-dtags 
+	#how to see the dynamic link : ldd a.out
+	#how to see the dynamic link searching : LD_DEBUG=libs ldd a.out
+	
+	#. as current working directory, "\$ORIGIN" as executable working directory)
+	#never use '~', which is supported by bash but not gcc
+	#for LD_DEBUG : http://tldp.org/HOWTO/Program-Library-HOWTO/shared-libraries.html
+
 
 
 4.链接搜索路径
@@ -42,12 +55,17 @@
 		5.binutils中的ld所设定的缺省搜索路径顺序，编译binutils时指定。（可以通过“ld --verbose | grep SEARCH”来查看） 
 		6.二进制程序的搜索路径顺序为PATH环境变量中所设定。一般/usr/local/bin高于/usr/bin
 		7.编译时的头文件的搜索路径顺序，与library的查找顺序类似。一般/usr/local/include高于/usr/include
+	http://man7.org/linux/man-pages/man1/ld.1.html
 
 	动态库(运行时由ld-linux.so执行)
-		1.ld-linux.so.6在可执行的目标文件中被指定，可用readelf命令查看 
-		2.ld-linux.so.6缺省在/usr/lib和lib中搜索；当glibc安装到/usr/local下时，它查找/usr/local/lib
-		3.LD_LIBRARY_PATH环境变量中所设定的路径 
-		4./etc/ld.so.conf（或/usr/local/etc/ld.so.conf）中所指定的路径，由ldconfig生成二进制的ld.so.cache中
+		1.Directories listed in the executable’s RPATH.
+		2.Directories in the LD_LIBRARY_PATH environment variable, which contains colon-separated list of 				directories (e.g., /path/to/libdir:/another/path)
+		3.Directories listed in the executable’s RUNPATH.
+		4.The list of directories in the file /etc/ld.so.conf. This file can include other files, but it is 				basically a list of directories - one per line.
+		5.Default system libraries - usually /lib and /usr/lib (skipped if compiled with -z nodefaultlib).
+
+	http://man7.org/linux/man-pages/man8/ld.so.8.html
+
 
 
 5.报错
@@ -67,6 +85,7 @@
 	readelf	显示ELF文件信息
 	ldd 	显示dynamic object的dependencies
 	nm	显示object的符号表
+	objdump - display information from object files
 
 	ar	创建.a库（.o模块的集合）
 	ln	创建hard link/symbolic link
@@ -101,4 +120,7 @@
 
  	     #An archive is a single file holding a collection of other files in a structure that makes it possible to retrieve the original individual files
 	     #ar archive is different from tar archive, although they both are archive, but implement and use in different way(ar:relocatable;tar:directory)
+
+Document : https://gcc.gnu.org/onlinedocs/gcc/
+Option Summary : https://gcc.gnu.org/onlinedocs/gcc/Option-Summary.html#Option-Summary
  

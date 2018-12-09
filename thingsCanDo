@@ -21,3 +21,7 @@ server
 pdf(ok)
 
 better terminal
+
+mime .desktop
+
+man
