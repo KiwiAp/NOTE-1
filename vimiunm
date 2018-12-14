@@ -1,0 +1,55 @@
+[vimium]    -    vimium is extension on chrome    {https://github.com/philc/vimium#keyboard-bindings}
+	?    :    list all the shortcut
+
+	h j k l    	:    ← ↓ ↑ →
+	u d			:	 ↑↑ ↓↓
+	gg G		:    ↑↑↑ ↓↓↓(shift+g)
+	H J K L    	:    goBack leftTab rightTab goForward
+	t r x X     :    creatTab reloadTab closeTab restoreTab
+	i v c / Esc :    insertMode visualMode caretMode findMode normalMode
+	n N      	:    NextMatch previousMatch(findMode)
+	yy y        :    copyCurrentUrl copyCurrentText
+	f F <a-f>   :    openLinkInCurrentTab openLinkInNewTab openLinksInNewTab(atl+f)
+	gi gf gF	:    selectFirstTextInput selectNextFrame selectMainFrame(g shift+f)
+	mA `A       :    createGlobalMark jumpToGlobalMark(better solution: 'map m  Marks.activateCreateMode swap' 'map M Marks.activateGotoMode swap')
+	o O b B		:	 openEntry OpenEentryInNewTab openBookMark openBookMarkInNewTab
+	
+
+	select texts:    	{https://github.com/philc/vimium/wiki/Visual-Mode}
+		1)/  =>  find mode   or   v + c  =>  caret mode    :    set the anchor
+		2)<shift> + v  =>  visual mode<line>    :    set the focus		   # o can swap the anchor and focus
+		3)jk,hl choose the texts
+
+	<Custom key mappings>   Options -> Custom key mappings -> Saved
+		#'mapkey' can apply in every mode, but 'map' can't
+		mapkey h i    
+		# change enterInsertMode
+		mapkey i k
+		mapkey k j
+		mapkey j h
+		# change up down left
+		mapkey L K
+		mapkey I H
+		mapkey K L
+		# change nextTab goBack goForward
+	
+	
+[chrome shortcut]
+	{chrome keyboard shortcut(official)}https://support.google.com/chrome/answer/157179?hl=en&topic=25799&rd=1
+	{chrome keyboard shortcut}(better edition)https://shortcutworld.com/Chrome/win/Google-Chrome_Shortcuts
+	ctrl + number    =>    switch to a tab
+	ctrl + <shift> + tab    =>    switch to next<last> tab
+	ctrl + t	=>	  creat new tab
+	ctrl + w    =>    close current tab
+	ctrl + l    =>    focus on url bar
+	F6	        =>	  Alternate focus between address bar and webpage
+	alt + ←    =>    go back to previous page
+	alt + →    =>    go forward to next page
+	ctrl + click    =>    open link in new tab
+
+	
+[windows shortcut]
+	{windows shortcut}https://blogs.technet.microsoft.com/sebastianklenk/2015/05/28/windows-10-keyboard-shortcuts-at-a-glance/
+	alt + space    :    Restore, move, size, minimize, maximize or close current window
+
+[new tab redirect]    :    useful extension in chrome to redirect new tab

@@ -1,0 +1,43 @@
+semiconductor industry：		#Knowledge-intense and captital-intense industry
+	design-manufacture-assembly&test
+	IDM = design+manufacture+assembly&test
+	IPCompany = design(module)
+	Fabless = design(assembly|module)
+	Foundry = manufacture
+	Assembly&TestFoundry = assmebly&test
+
+device-chip-company:
+	PC-CPU-Intel/AMD, PC-GPU-Nvidia/AMD, 
+	SmartPhone-SOC-Qualcomm/Apple/MediaTek/HiSilicon/SpreadTrum, SmartPhone-CPU(in SOC)-ARM
+	PC/SmartPhone-Memory-Toshiba/WesternDigital, PC/SmartPhone-Assembly&Test-ASE, PC/SmartPhone-otherIPChips-manyCompanies
+	
+Semiconductor Company:
+	IDM - integrated device manufactory
+		Intel(CPU),Samsung(SOC) | Toshiba,WesternDigital (Memory) | TI[America],ST[EU],infineon[EU],NXP[EU] (OtherIPChips)
+		# IDM sometimes provide manufacture service to Fabless company(Samsung - Qualcomm,Apple)
+	
+	IPCompany
+		ARM[EU] | manySmallCompany(OtherIPChips)
+		# ARM(RISC) is a CPU architectrue different from the x86(CISC) that Intel and AMD used, mainly used for embedded processor
+		
+	Fabless/Foundry
+		Fabless: Qualcomm,Apple,MediaTek[Taiwan],HiSilicon[Huawei subsidiary],SpreadTrum[shanghai] (SOC) | AMD(CPU,GPU),Nvidia(GPU)
+		Foundry: TSMC,UMC[Taiwan],GlobalFoundries[America] {60%,10%,10%}
+	
+	Assembly&TestFoundry
+		Taiwan[ASE],America,MainlandChina {50%,20%,10%}
+
+SOC introduction:
+	1) SOC = assamble CPU + OtherIPChips(RAM,GPU,DSP...) into a single chip, mainly used in smartphone
+	2) SOC can improve the performance, cost, dissipation, robustness of its IPchips system
+	3) notice: SOC do not include all the chips a smart phone need and there are many other chips outside SOC on the motherBoard
+	4) Four High-End SOC: Qualcomm-Snapdragon, Apple-Aseries, Samsung-Exynos, Huawei-Kirin 
+
+	
+Reference
+集成电路产业链:http://www.360doc.com/content/17/0721/21/37015604_673159298.shtml
+集成电路制造工艺:https://www.zhihu.com/question/26998618/answer/37031302
+i7和i3的关系-良品率:https://www.zhihu.com/question/23919992/answer/29990155
+2017全球十大Fabless:https://www.sohu.com/a/215216490_756356
+ARM架构和x86架构的区别:http://m.elecfans.com/article/678193.html
+SOC和IP的关系:https://blog.csdn.net/zn2857/article/details/78846922
