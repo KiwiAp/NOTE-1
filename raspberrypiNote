@@ -1,0 +1,23 @@
+things to do:
+	password root
+	/etc/dhcpcd.conf
+	/etc/dhcp/dclient.conf
+	wpa_passphrase
+	/etc/wpa_supplicant/wpa_supplicant.conf		connect to wifi when booting
+	/etc/resolve.conf
+	/etc/network/interfaces
+	
+
+Red LED: 1.on if power OK 2.flashes if the power drops below about 4.63V
+Green LED: 1.irregular flashes for SD card access
+
+poweroff : 'sudo halt', 'sudo shutdown -h now' + pull the plug after green light stop flashing
+reboot : 'sudo reboot', 'sudo shutdow -r now'
+
+ssh : 'ssh pi@[ipaddress]', 'ssh pi@raspberrypi.local'(in the same network)
+	#ssh login without password : [1]http://www.linuxproblem.org/art_9.html
+
+ipaddress : 10.21.2.111
+	10.30.24.251
+
+accout:pi;hostname:raspberrypi;passwd:Levi99;old passwd:raspberry

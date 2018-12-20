@@ -30,7 +30,7 @@ WIFI
 		show connection : nmcli -p con show --active
 		connect wifi : nmcli con up [id|uuid]
 		disconnect wifi : nmcli con down [id|uuid]
-		
+
 		show current wifi : iwgetid
 		
 		create hotspot : nmcli -p dev wifi hotspot ifname wlp2s0 ssid test password "12345678"
@@ -157,5 +157,10 @@ other:
 	date- print or set the system date and time
 	cal - displays a calendar and the date of Easter
 	bc - An arbitrary precision calculator language
+
+ssh:
+	# set ssh to without password
+	ssh-keygen -t rsa
+	ssh-copy-id id@server
 
 

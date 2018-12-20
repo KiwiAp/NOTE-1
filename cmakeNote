@@ -1,0 +1,54 @@
+1.Simple Example
+Code:
+    ~/test
+        test.cpp
+            #include"testfunc.h"
+            int main(){
+                testprint();    
+            }
+    ~/test/src
+        testfunc.h
+            #include<iostream>
+            void testprint();
+        
+        testfunc.cpp
+            #include"testfunc.h"
+            void testprint(){std::cout << 6 << std::endl;}
+
+cmake:
+cmake_minimum_required(VERSION 3.1)
+
+project(test VERSION 1.0 DESCRIPTION "cmake learn program" LANGUAGES CXX)
+
+#g++ -c  -o libtestfunc.o  src/testfunc.cpp     #g++ src/testfunc.cpp -c -o libtestfunc.o
+add_library(libtestfunc.o src/testfunc.cpp)
+
+#g++ -o a.out test.cpp  -I src  libtestfunc.o   #g++ test.cpp libtestfunc.o -I src -o a.out
+add_executable(a.out test.cpp)
+target_include_directories(a.out PUBLIC src)
+target_link_libraries(a.out PUBLIC libtestfunc.o)
+
+
+2.variable
+    1)
+    set(VAR "value") - set variable
+    ${VAR} - access variable
+    2)
+    set(VAR "val1" "val2") is identical to
+    set(VAR "val1;val2")
+    3)
+    set(ENV{VAR} "value") - set environment variable
+    $ENV{VAR} - access variable
+    4)
+    set(MY_CACHE_VARIABLE "VALUE" CACHE STRING "" FORCE)
+    #"MY_CACHE_VARIABLE:STRING=VALUE" >> CMakeCache.txt
+    #[1]https://cmake.org/cmake/help/v3.0/command/set.html
+    5)
+    cmake-variables(CMakeCache.txt):
+        #[2]https://cmake.org/cmake/help/latest/manual/cmake-variables.7.html
+      
+3.property
+    set_property(TARGET a.out PROPERTY CXX_STANDARD 11)
+    set_target_properties(a.out PROPERTIES CXX_STANDARD 11)
+    get_property(11 TARGET a.out PROPERTY CXX_STANDARD)
+    #[3]https://cmake.org/cmake/help/latest/manual/cmake-properties.7.html
