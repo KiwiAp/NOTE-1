@@ -3,3 +3,10 @@ https://www.howtogeek.com/115664/42-text-editing-keyboard-shortcuts-that-work-al
 ctrl+left/right arrow  -  move cursor to previous/next word
 ctrl+backspace/delete  -  delete previous/next word
 shift+(ctrl)+arrow  -  select text
+
+[STARTUP OF LINUX]
+1) install sogou Chinese input:
+  <https://cherishlc.iteye.com/blog/2320166>
+  1. Download and install sogou's deb from its website
+  2. Command 'fcitx-configtool' and click '+' button
+  3. Cancel 'Only Show Current Language' opontion, search Sogou Pinyin and click 'ok' 
