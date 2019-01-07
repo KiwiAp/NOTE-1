@@ -1,6 +1,5 @@
-Ctrl+Left Arrow – Move cursor to beginning of previous word.
-Ctrl+Right Arrow – Move cursor to beginning of next word
-Ctrl+Backspace – Delete previous word.
-Ctrl+Delete – Delete next word.
-Ctrl+Up Arrow – Move cursor to beginning of paragraph.
-Ctrl+Down Arrow – Move cursor to end of paragraph.
+https://www.howtogeek.com/115664/42-text-editing-keyboard-shortcuts-that-work-almost-everywhere/
+
+ctrl+left/right arrow  -  move cursor to previous/next word
+ctrl+backspace/delete  -  delete previous/next word
+shift+(ctrl)+arrow  -  select text
